@@ -2,16 +2,16 @@
   <PropertyGroup>
     <ProductVersion>9.0.30729</ProductVersion>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>VisioForge_SDK_Video_Capture_Demo</RootNamespace>
-    <AssemblyName>WinForms Simple Video Capture Demo</AssemblyName>
+    <RootNamespace>Colpoapp</RootNamespace>
+    <AssemblyName>Colpoapp</AssemblyName>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworks>net8.0-windows</TargetFrameworks>
     <PlatformTarget>x64</PlatformTarget>
     <UseWindowsForms>true</UseWindowsForms>
-    <AssemblyTitle>Video Capture Demo</AssemblyTitle>
-    <Company>VisioForge</Company>
-    <Product>Video Capture Demo</Product>
-    <Copyright>Copyright (c) 2006-2023</Copyright>
+    <AssemblyTitle>Colpoapp</AssemblyTitle>
+    <Company>Laimdotas Bergites Arstu Prakse</Company>
+    <Product>Colpoapp</Product>
+    <Copyright>Copyright (c) 2006-2024</Copyright>
     <AssemblyVersion>15.5.88.0</AssemblyVersion>
     <FileVersion>15.5.88.0</FileVersion>
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -65,6 +65,19 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.5.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.5">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.15">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
     <PackageReference Include="VisioForge.DotNet.VideoCapture" Version="15.9.37" />
     <PackageReference Include="VisioForge.DotNet.Core.UI.WinForms" Version="15.9.37" />
     <PackageReference Include="VisioForge.DotNet.Core.Redist.VideoCapture.x64" Version="15.9.37" />

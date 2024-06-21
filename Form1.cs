@@ -8,6 +8,7 @@ using System.Globalization;
 
 namespace VisioForge_SDK_Video_Capture_Demo
 {
+    using Microsoft.Extensions.Configuration;
     using System;
     using System.Diagnostics;
     using System.Drawing;
@@ -27,6 +28,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
     using VisioForge.Core.UI.WinForms.Dialogs.OutputFormats;
     using VisioForge.Core.UI.WinForms.Dialogs.VideoEffects;
     using VisioForge.Core.VideoCapture;
+    using WinForm;
 
     public partial class Form1 : Form
     {
@@ -61,16 +63,30 @@ namespace VisioForge_SDK_Video_Capture_Demo
 
         private VideoCaptureCore VideoCapture1;
 
+
+        public IConfiguration Configuration { get; }
+
         public Form1()
         {
+            Configuration = ConfigurationHelper.GetConfiguration();
             InitializeComponent();
         }
 
         private async Task CreateEngineAsync()
         {
-            VideoCapture1 = await VideoCaptureCore.CreateAsync(VideoView1 as IVideoView);
-
-            VideoCapture1.OnError += VideoCapture1_OnError;
+            try
+            {
+                VideoCapture1 = await VideoCaptureCore.CreateAsync(VideoView1 as IVideoView);
+            }
+            catch (DivideByZeroException ex)
+            {
+                // Handle or log the exception here
+                Console.WriteLine(ex.Message);
+            }
+            if (VideoCapture1 != null)
+            {
+                VideoCapture1.OnError += VideoCapture1_OnError;
+            }
         }
 
         private void DestroyEngine()
@@ -84,68 +100,12 @@ namespace VisioForge_SDK_Video_Capture_Demo
             }
         }
 
-        private void cbAudioInputDevice_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cbAudioInputDevice.SelectedIndex != -1)
-            {
-                cbAudioInputFormat.Items.Clear();
 
-                var deviceItem = VideoCapture1.Audio_CaptureDevices().FirstOrDefault(device => device.Name == cbAudioInputDevice.Text);
-                if (deviceItem == null)
-                {
-                    return;
-                }
 
-                var defaultValue = "PCM, 44100 Hz, 16 Bits, 2 Channels";
-                var defaultValueExists = false;
-                foreach (string format in deviceItem.Formats)
-                {
-                    cbAudioInputFormat.Items.Add(format);
-
-                    if (defaultValue == format)
-                    {
-                        defaultValueExists = true;
-                    }
-                }
-
-                if (cbAudioInputFormat.Items.Count > 0)
-                {
-                    cbAudioInputFormat.SelectedIndex = 0;
-
-                    if (defaultValueExists)
-                    {
-                        cbAudioInputFormat.Text = defaultValue;
-                    }
-                }
-
-                cbAudioInputLine.Items.Clear();
-
-                foreach (string line in deviceItem.Lines)
-                {
-                    cbAudioInputLine.Items.Add(line);
-                }
-
-                if (cbAudioInputLine.Items.Count > 0)
-                {
-                    cbAudioInputLine.SelectedIndex = 0;
-                }
-
-                btAudioInputDeviceSettings.Enabled = deviceItem.DialogDefault;
-            }
-        }
-
-        private void btAudioInputDeviceSettings_Click(object sender, EventArgs e)
-        {
-            VideoCapture1.Audio_CaptureDevice_SettingsDialog_Show(IntPtr.Zero, cbAudioInputDevice.Text);
-        }
-
-        private void cbUseBestAudioInputFormat_CheckedChanged(object sender, EventArgs e)
-        {
-            cbAudioInputFormat.Enabled = !cbUseBestAudioInputFormat.Checked;
-        }
 
         private void cbVideoInputDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (VideoCapture1 == null) return;
             if (cbVideoInputDevice.SelectedIndex != -1)
             {
                 cbVideoInputFormat.Items.Clear();
@@ -172,6 +132,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
 
         private void cbVideoInputFormat_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (VideoCapture1 == null) return;
             if (string.IsNullOrEmpty(cbVideoInputFormat.Text))
             {
                 return;
@@ -211,124 +172,16 @@ namespace VisioForge_SDK_Video_Capture_Demo
 
         private void btVideoCaptureDeviceSettings_Click(object sender, EventArgs e)
         {
+            if (VideoCapture1 == null) return;
             VideoCapture1.Video_CaptureDevice_SettingsDialog_Show(IntPtr.Zero, cbVideoInputDevice.Text);
         }
 
-        private void tbAudioVolume_Scroll(object sender, EventArgs e)
-        {
-            VideoCapture1.Audio_OutputDevice_Volume_Set(tbAudioVolume.Value);
-        }
 
-        private void tbAudioBalance_Scroll(object sender, EventArgs e)
-        {
-            VideoCapture1.Audio_OutputDevice_Balance_Set(tbAudioBalance.Value);
-        }
 
-        private void cbAudAmplifyEnabled_CheckedChanged(object sender, EventArgs e)
-        {
-            VideoCapture1.Audio_Effects_Enable(-1, AUDIO_EFFECT_ID_AMPLIFY, cbAudAmplifyEnabled.Checked);
-        }
-
-        private void tbAudAmplifyAmp_Scroll(object sender, EventArgs e)
-        {
-            VideoCapture1.Audio_Effects_Amplify(-1, AUDIO_EFFECT_ID_AMPLIFY, tbAudAmplifyAmp.Value * 10, false);
-        }
-
-        private void cbAudEqualizerEnabled_CheckedChanged(object sender, EventArgs e)
-        {
-            VideoCapture1.Audio_Effects_Enable(-1, AUDIO_EFFECT_ID_EQ, cbAudEqualizerEnabled.Checked);
-        }
-
-        private void tbAudEq0_Scroll(object sender, EventArgs e)
-        {
-            VideoCapture1.Audio_Effects_Equalizer_Band_Set(-1, AUDIO_EFFECT_ID_EQ, 0, (sbyte)tbAudEq0.Value);
-        }
-
-        private void tbAudEq1_Scroll(object sender, EventArgs e)
-        {
-            VideoCapture1.Audio_Effects_Equalizer_Band_Set(-1, AUDIO_EFFECT_ID_EQ, 1, (sbyte)tbAudEq1.Value);
-        }
-
-        private void tbAudEq2_Scroll(object sender, EventArgs e)
-        {
-            VideoCapture1.Audio_Effects_Equalizer_Band_Set(-1, AUDIO_EFFECT_ID_EQ, 2, (sbyte)tbAudEq2.Value);
-        }
-
-        private void tbAudEq3_Scroll(object sender, EventArgs e)
-        {
-            VideoCapture1.Audio_Effects_Equalizer_Band_Set(-1, AUDIO_EFFECT_ID_EQ, 3, (sbyte)tbAudEq3.Value);
-        }
-
-        private void tbAudEq4_Scroll(object sender, EventArgs e)
-        {
-            VideoCapture1.Audio_Effects_Equalizer_Band_Set(-1, AUDIO_EFFECT_ID_EQ, 4, (sbyte)tbAudEq4.Value);
-        }
-
-        private void tbAudEq5_Scroll(object sender, EventArgs e)
-        {
-            VideoCapture1.Audio_Effects_Equalizer_Band_Set(-1, AUDIO_EFFECT_ID_EQ, 5, (sbyte)tbAudEq5.Value);
-        }
-
-        private void tbAudEq6_Scroll(object sender, EventArgs e)
-        {
-            VideoCapture1.Audio_Effects_Equalizer_Band_Set(-1, AUDIO_EFFECT_ID_EQ, 6, (sbyte)tbAudEq6.Value);
-        }
-
-        private void tbAudEq7_Scroll(object sender, EventArgs e)
-        {
-            VideoCapture1.Audio_Effects_Equalizer_Band_Set(-1, AUDIO_EFFECT_ID_EQ, 7, (sbyte)tbAudEq7.Value);
-        }
-
-        private void tbAudEq8_Scroll(object sender, EventArgs e)
-        {
-            VideoCapture1.Audio_Effects_Equalizer_Band_Set(-1, AUDIO_EFFECT_ID_EQ, 8, (sbyte)tbAudEq8.Value);
-        }
-
-        private void tbAudEq9_Scroll(object sender, EventArgs e)
-        {
-            VideoCapture1.Audio_Effects_Equalizer_Band_Set(-1, AUDIO_EFFECT_ID_EQ, 9, (sbyte)tbAudEq9.Value);
-        }
-
-        private void cbAudEqualizerPreset_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            VideoCapture1.Audio_Effects_Equalizer_Preset_Set(-1, AUDIO_EFFECT_ID_EQ, (EqualizerPreset)cbAudEqualizerPreset.SelectedIndex);
-            btAudEqRefresh_Click(sender, e);
-        }
-
-        private void btAudEqRefresh_Click(object sender, EventArgs e)
-        {
-            tbAudEq0.Value = VideoCapture1.Audio_Effects_Equalizer_Band_Get(-1, AUDIO_EFFECT_ID_EQ, 0);
-            tbAudEq1.Value = VideoCapture1.Audio_Effects_Equalizer_Band_Get(-1, AUDIO_EFFECT_ID_EQ, 1);
-            tbAudEq2.Value = VideoCapture1.Audio_Effects_Equalizer_Band_Get(-1, AUDIO_EFFECT_ID_EQ, 2);
-            tbAudEq3.Value = VideoCapture1.Audio_Effects_Equalizer_Band_Get(-1, AUDIO_EFFECT_ID_EQ, 3);
-            tbAudEq4.Value = VideoCapture1.Audio_Effects_Equalizer_Band_Get(-1, AUDIO_EFFECT_ID_EQ, 4);
-            tbAudEq5.Value = VideoCapture1.Audio_Effects_Equalizer_Band_Get(-1, AUDIO_EFFECT_ID_EQ, 5);
-            tbAudEq6.Value = VideoCapture1.Audio_Effects_Equalizer_Band_Get(-1, AUDIO_EFFECT_ID_EQ, 6);
-            tbAudEq7.Value = VideoCapture1.Audio_Effects_Equalizer_Band_Get(-1, AUDIO_EFFECT_ID_EQ, 7);
-            tbAudEq8.Value = VideoCapture1.Audio_Effects_Equalizer_Band_Get(-1, AUDIO_EFFECT_ID_EQ, 8);
-            tbAudEq9.Value = VideoCapture1.Audio_Effects_Equalizer_Band_Get(-1, AUDIO_EFFECT_ID_EQ, 9);
-        }
-
-        private void cbAudTrueBassEnabled_CheckedChanged(object sender, EventArgs e)
-        {
-            VideoCapture1.Audio_Effects_Enable(-1, AUDIO_EFFECT_ID_TRUE_BASS, cbAudTrueBassEnabled.Checked);
-        }
-
-        private void tbAudTrueBass_Scroll(object sender, EventArgs e)
-        {
-            VideoCapture1.Audio_Effects_TrueBass(-1, AUDIO_EFFECT_ID_TRUE_BASS, 200, false, (ushort)tbAudTrueBass.Value);
-        }
-
-        private void btSelectOutput_Click(object sender, EventArgs e)
-        {
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                edOutput.Text = saveFileDialog1.FileName;
-            }
-        }
 
         private async void btStart_Click(object sender, EventArgs e)
         {
+            if (VideoCapture1 == null) return;
             mmLog.Clear();
 
             VideoCapture1.Video_Sample_Grabber_Enabled = true;
@@ -342,18 +195,6 @@ namespace VisioForge_SDK_Video_Capture_Demo
 
             VideoCapture1.Audio_OutputDevice = "Default DirectSound Device";
 
-            if (cbRecordAudio.Checked)
-            {
-                VideoCapture1.Audio_RecordAudio = true;
-                VideoCapture1.Audio_PlayAudio = true;
-            }
-            else
-            {
-                VideoCapture1.Audio_RecordAudio = false;
-                VideoCapture1.Audio_PlayAudio = false;
-            }
-
-            VideoCapture1.Audio_OutputDevice = cbAudioOutputDevice.Text;
 
             // apply capture parameters
             VideoCapture1.Video_CaptureDevice = new VideoCaptureSource(cbVideoInputDevice.Text);
@@ -365,10 +206,6 @@ namespace VisioForge_SDK_Video_Capture_Demo
                 VideoCapture1.Video_CaptureDevice.FrameRate = new VideoFrameRate(Convert.ToDouble(cbVideoInputFrameRate.Text));
             }
 
-            VideoCapture1.Audio_CaptureDevice = new AudioCaptureSource(cbAudioInputDevice.Text);
-            VideoCapture1.Audio_CaptureDevice.Format_UseBest = cbUseBestAudioInputFormat.Checked;
-            VideoCapture1.Audio_CaptureDevice.Format = cbAudioInputFormat.Text;
-
 
             if (rbPreview.Checked)
             {
@@ -377,7 +214,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             else
             {
                 VideoCapture1.Mode = VideoCaptureMode.VideoCapture;
-                VideoCapture1.Output_Filename = edOutput.Text;
+                //VideoCapture1.Output_Filename = edOutput.Text;
 
                 switch (cbOutputFormat.SelectedIndex)
                 {
@@ -448,13 +285,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             lbLogos.Items.Clear();
             ConfigureVideoEffects();
 
-            // Audio processing
-            VideoCapture1.Audio_Effects_Clear(-1);
-            VideoCapture1.Audio_Effects_Enabled = true;
 
-            VideoCapture1.Audio_Effects_Add(-1, AudioEffectType.Amplify, AUDIO_EFFECT_ID_AMPLIFY, cbAudAmplifyEnabled.Checked, TimeSpan.Zero, TimeSpan.Zero);
-            VideoCapture1.Audio_Effects_Add(-1, AudioEffectType.Equalizer, AUDIO_EFFECT_ID_EQ, cbAudEqualizerEnabled.Checked, TimeSpan.Zero, TimeSpan.Zero);
-            VideoCapture1.Audio_Effects_Add(-1, AudioEffectType.TrueBass, AUDIO_EFFECT_ID_TRUE_BASS, cbAudTrueBassEnabled.Checked, TimeSpan.Zero, TimeSpan.Zero);
 
             var res = await VideoCapture1.StartAsync();
             if (!res)
@@ -468,6 +299,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
 
         private async void btStop_Click(object sender, EventArgs e)
         {
+            if (VideoCapture1 == null) return;
             tmRecording.Stop();
 
             await VideoCapture1.StopAsync();
@@ -476,6 +308,8 @@ namespace VisioForge_SDK_Video_Capture_Demo
         private async void Form1_Load(object sender, EventArgs e)
         {
             await CreateEngineAsync();
+
+            if (VideoCapture1 == null) return;
 
             Text += $" (SDK v{VideoCapture1.SDK_Version()})";
 
@@ -498,66 +332,12 @@ namespace VisioForge_SDK_Video_Capture_Demo
 
             cbVideoInputDevice_SelectedIndexChanged(null, null);
 
-            foreach (var device in VideoCapture1.Audio_CaptureDevices())
-            {
-                cbAudioInputDevice.Items.Add(device.Name);
-            }
 
-            if (cbAudioInputDevice.Items.Count > 0)
-            {
-                cbAudioInputDevice.SelectedIndex = 0;
-                cbAudioInputDevice_SelectedIndexChanged(null, null);
-            }
 
-            cbAudioInputLine.Items.Clear();
 
-            if (!string.IsNullOrEmpty(cbAudioInputDevice.Text))
-            {
-                var deviceItem =
-                    VideoCapture1.Audio_CaptureDevices().FirstOrDefault(device => device.Name == cbAudioInputDevice.Text);
-                if (deviceItem != null)
-                {
-                    foreach (string line in deviceItem.Lines)
-                    {
-                        cbAudioInputLine.Items.Add(line);
-                    }
 
-                    if (cbAudioInputLine.Items.Count > 0)
-                    {
-                        cbAudioInputLine.SelectedIndex = 0;
-                    }
-                }
-            }
 
-            string defaultAudioRenderer = string.Empty;
-            foreach (string audioOutputDevice in VideoCapture1.Audio_OutputDevices())
-            {
-                cbAudioOutputDevice.Items.Add(audioOutputDevice);
 
-                if (audioOutputDevice.Contains("Default DirectSound Device"))
-                {
-                    defaultAudioRenderer = audioOutputDevice;
-                }
-            }
-
-            if (cbAudioOutputDevice.Items.Count > 0)
-            {
-                if (string.IsNullOrEmpty(defaultAudioRenderer))
-                {
-                    cbAudioOutputDevice.SelectedIndex = 0;
-                }
-                else
-                {
-                    cbAudioOutputDevice.Text = defaultAudioRenderer;
-                }
-            }
-
-            foreach (string preset in VideoCapture1.Audio_Effects_Equalizer_Presets())
-            {
-                cbAudEqualizerPreset.Items.Add(preset);
-            }
-
-            edOutput.Text = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "VisioForge", "output.mp4");
 
             VideoCapture1.Video_Renderer_SetAuto();
         }
@@ -583,29 +363,38 @@ namespace VisioForge_SDK_Video_Capture_Demo
 
         private async void btSaveScreenshot_Click(object sender, EventArgs e)
         {
-            if (screenshotSaveDialog.ShowDialog(this) == DialogResult.OK)
+            //if (screenshotSaveDialog.ShowDialog(this) == DialogResult.OK)
+            //{
+            string ext = ".jpg"; // Change this to your desired extension
+            string fname = $"VF_{DateTime.Now:yyMMdd-HHmmss}{ext}";
+            string directoryPath = Directory.GetCurrentDirectory(); // Gets the current directory
+            string filename = Path.Combine(directoryPath, "images", fname);
+
+            // Add your desired extension to the filename
+
+            //fullPath += ext;
+            //  var filename = screenshotSaveDialog.FileName;
+            //     var ext = Path.GetExtension(filename)?.ToLowerInvariant();
+            Console.WriteLine(filename);
+            switch (ext)
             {
-               var filename = screenshotSaveDialog.FileName;
-               var ext = Path.GetExtension(filename)?.ToLowerInvariant();
-               switch (ext)
-               {
-                   case ".bmp":
-                       await VideoCapture1.Frame_SaveAsync(filename, ImageFormat.Bmp, 0);
-                       break;
-                   case ".jpg":
-                       await VideoCapture1.Frame_SaveAsync(filename, ImageFormat.Jpeg, 85);
-                       break;
-                   case ".gif":
-                       await VideoCapture1.Frame_SaveAsync(filename, ImageFormat.Gif, 0);
-                       break;
-                   case ".png":
-                       await VideoCapture1.Frame_SaveAsync(filename, ImageFormat.Png, 0);
-                       break;
-                   case ".tiff":
-                       await VideoCapture1.Frame_SaveAsync(filename, ImageFormat.Tiff, 0);
-                       break;
-               }
+                case ".bmp":
+                    await VideoCapture1.Frame_SaveAsync(filename, ImageFormat.Bmp, 0);
+                    break;
+                case ".jpg":
+                    await VideoCapture1.Frame_SaveAsync(filename, ImageFormat.Jpeg, 85);
+                    break;
+                case ".gif":
+                    await VideoCapture1.Frame_SaveAsync(filename, ImageFormat.Gif, 0);
+                    break;
+                case ".png":
+                    await VideoCapture1.Frame_SaveAsync(filename, ImageFormat.Png, 0);
+                    break;
+                case ".tiff":
+                    await VideoCapture1.Frame_SaveAsync(filename, ImageFormat.Tiff, 0);
+                    break;
             }
+            //}
         }
 
         private void SetMP4Output(ref MP4Output mp4Output)
@@ -685,47 +474,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             }
         }
 
-        private void cbOutputFormat_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            switch (cbOutputFormat.SelectedIndex)
-            {
-                case 0:
-                    {
-                        edOutput.Text = FilenameHelper.ChangeFileExt(edOutput.Text, ".avi");
-                        break;
-                    }
-                case 1:
-                    {
-                        edOutput.Text = FilenameHelper.ChangeFileExt(edOutput.Text, ".wmv");
-                        break;
-                    }
-                case 2:
-                    {
-                        edOutput.Text = FilenameHelper.ChangeFileExt(edOutput.Text, ".mp4"); //-V3139
-                        break;
-                    }
-                case 3:
-                    {
-                        edOutput.Text = FilenameHelper.ChangeFileExt(edOutput.Text, ".mp4");
-                        break;
-                    }
-                case 4:
-                    {
-                        edOutput.Text = FilenameHelper.ChangeFileExt(edOutput.Text, ".gif");
-                        break;
-                    }
-                case 5:
-                    {
-                        edOutput.Text = FilenameHelper.ChangeFileExt(edOutput.Text, ".ts");
-                        break;
-                    }
-                case 6:
-                    {
-                        edOutput.Text = FilenameHelper.ChangeFileExt(edOutput.Text, ".mov");
-                        break;
-                    }
-            }
-        }
+
 
         private async void btResume_Click(object sender, EventArgs e)
         {
@@ -1133,6 +882,25 @@ namespace VisioForge_SDK_Video_Capture_Demo
                     textLogo.Enabled = cbScrollingText.Checked;
                     textLogo.Reset();
                 }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                VisitsForm visitsForm = new VisitsForm(Configuration);
+                //this.Hide(); // Hides Form1
+                visitsForm.Show();
+            }
+            catch (Exception ex)
+            {
+                var sinfo = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    sinfo += "\nInner Exception: " + ex.InnerException.Message;
+                }
+                MessageBox.Show(sinfo, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
