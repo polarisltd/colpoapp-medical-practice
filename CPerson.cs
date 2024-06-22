@@ -16,12 +16,12 @@ namespace VisioForge_SDK_Video_Capture_Demo.Models
     [Table(name: "PERSON", Schema = "dbo")]
     public class CPerson
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string name { get; set; }
         public string surname { get; set; }
-        public float age { get; set; }
-        public string city { get; set; }
-        public float height { get; set; }
+        public float? age { get; set; }
+        public string? city { get; set; }
+        public float? height { get; set; }
     }
 
     

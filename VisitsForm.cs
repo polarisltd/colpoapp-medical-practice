@@ -16,6 +16,8 @@ namespace WinForm
         private IConfiguration Configuration;
         private int VisitId;
         private CVisit currentVisit;
+        private CPerson selectedPatient;
+        private BindingSource patientsBsource;
         public VisitsForm(IConfiguration Configuration)
         {
             this.Configuration = Configuration;
@@ -71,7 +73,8 @@ namespace WinForm
 
                 populateVisitImages();
 
-                bindVisitFormFields();
+                tabVisits.Enabled = false;
+                // bindVisitFormFields(); // call this at client selection point
 
 
             }
@@ -96,7 +99,7 @@ namespace WinForm
 
             // creating a new visit and updating patient id. returning this.visitId
             var visit = new CVisit();
-            visit.PatientId = 1;
+            visit.PatientId = this.selectedPatient.Id;
             _context.dbVisits.Add(visit);
             _context.SaveChanges();
             this.VisitId = visit.Id;
@@ -203,10 +206,10 @@ namespace WinForm
             {
 
 
-                BindingSource bsource = new BindingSource();
-                bsource.DataSource = _context.dbPersons.ToList();
+                this.patientsBsource = new BindingSource();
+                this.patientsBsource.DataSource = _context.dbPersons.ToList();
                 gridPatients.DataSource = null;
-                gridPatients.DataSource = bsource;
+                gridPatients.DataSource = this.patientsBsource;
 
                 //CTableFormat cTableFormat = new CTableFormat();
                 //cTableFormat.FormatColumnGrid(ref dGridPostgres, 1);
@@ -230,6 +233,14 @@ namespace WinForm
 
         private void gridPatients_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if(this.selectedPatient is not null)
+            {
+                MessageBox.Show($"already selected patient: \n{selectedPatient.name} {selectedPatient.surname}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
+
             // Check if a row was double-clicked, not a column header
             if (e.RowIndex >= 0)
             {
@@ -241,7 +252,22 @@ namespace WinForm
                 var name = row.Cells["name"].Value;
 
                 // Use the data
-                MessageBox.Show($"Id: {id}, Name: {name}");
+                //MessageBox.Show($"Id: {id}, Name: {name}");
+
+               
+                // Retrieve the patient from the database
+                this.selectedPatient = _context.dbPersons.FirstOrDefault(p => p.Id == (int)id);
+
+                tabControl1.SelectedTab = tabVisits;
+
+                tabVisits.Enabled = true;
+
+                bindVisitFormFields();
+
+                labelVisitFormPatientName.Text = $"{selectedPatient.name} {selectedPatient.surname}";
+                labelVisitFormPatientAge.Text = selectedPatient.age.ToString();
+
+
             }
         }
 
@@ -310,49 +336,70 @@ namespace WinForm
             }
 
 
-
-
-            // Create a new BindingSource
-
-
-            /*
-            var visit = _context.dbVisits.Find(this.VisitId);
-
-            if (visit is not null)
-            {
-                
-                visit.IzmeklejumaDatums = fldIzmeklejumaDatums.Value;
-                visit.IzmeklejumaNr = fldIzmeklejumaNr.Text;
-                visit.Alergijas = fldAlergijasTrue.Checked ? "Yes" : "No";
-
-                visit.IzmeklejumaNr { get; set; }
-                visit.IzmeklejumaDatums { get; set; }
-    // DateTime dateOnly = visit.IzmeklejumaDatums.Date;
- 
-            visit.VizitesAtkartojums { get; set; }
-                visit.SkriningaNr { get; set; }
-                visit.Anamneze { get; set; }
-                visit.IepriekshVeiktaTerapija { get; set; }
-                visit.Alergijas { get; set; }
-                visit.TrnsformacijasZonasTips { get; set; }
-                visit.p1 { get; set; }
-                visit.p2 { get; set; }
-                visit.p3 { get; set; }
-                visit.p4 { get; set; }
-                visit.p5 { get; set; }
-                visit.m1 { get; set; }
-                visit.m2 { get; set; }
-                visit.m3 { get; set; }
-                visit.Rezultati { get; set; }
-                visit.Sledziens { get; set; }
-                visit.NakosaKolposkopijasKontrole { get; set; }
-                */
-
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void fldSearchPatient_TextChanged(object sender, EventArgs e)
+        {
+            // Handle the TextChanged event of the txtSearch TextBox
+            fldSearchPatient.TextChanged += (s, e) =>
+            {
+                // Get the text from the TextBox
+                string searchText = fldSearchPatient.Text;
+
+                // Filter the BindingSource
+                this.patientsBsource.DataSource = _context.dbPersons
+                    .Where(p => p.name.Contains(searchText) || p.surname.Contains(searchText))
+                    .ToList();
+
+                // Refresh the DataGridView
+                gridPatients.DataSource = null;
+                gridPatients.DataSource = this.patientsBsource;
+            };
+        }
+
+        private void btnAddPatient_Click(object sender, EventArgs e)
+        {
+            try
+            {
+               
+                string asName = fldPatientName.Text; 
+                string asSurname = fldPatientSurname.Text;
+                float? afAge = float.TryParse(fldPatientAge.Text, out float tempAge) ? tempAge : (float?)null;
+                //float afAge = Convert.ToSingle(float.TryParse(fldPatientAge.Text, out afAge)?fldPatientAge.Text:null); 
+                string asCity = fldPatientCity.Text; 
+                //float afHeight = Convert.ToSingle(float.TryParse(fldParientHeight.Text, out afAge) ? fldParientHeight.Text : null);
+                float? afHeight = float.TryParse(fldParientHeight.Text, out float tempHeight) ? tempHeight : (float?)null;
+                 
+
+                var newPerson = new CPerson
+                {
+                    name = asName,
+                    surname = asSurname,
+                    age = afAge,
+                    height = afHeight,
+                    city = asCity
+                };
+
+                _context.dbPersons.Add(newPerson);
+                _context.SaveChanges();
+                this.patientsBsource.DataSource = _context.dbPersons.ToList();
+                gridPatients.DataSource = null;
+                gridPatients.DataSource = this.patientsBsource;
+            }
+            catch (Exception ex)
+            {
+                var sinfo = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    sinfo += "\nInner Exception: " + ex.InnerException.Message;
+                }
+                MessageBox.Show($"Nevaru saglabāt pacientu datubāzē: \n{sinfo}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 

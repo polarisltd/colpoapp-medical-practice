@@ -37,11 +37,26 @@ namespace WinForm
             components = new System.ComponentModel.Container();
             tabControl1 = new TabControl();
             tabPatients = new TabPage();
+            panel1 = new Panel();
+            fldPatientCity = new TextBox();
+            labelCity = new Label();
+            fldParientHeight = new TextBox();
+            labelPatientHeight = new Label();
+            fldPatientAge = new TextBox();
+            labelAge = new Label();
+            fldPatientName = new TextBox();
+            btnAddPatient = new Button();
+            fldPatientSurname = new TextBox();
+            labelPatientName = new Label();
+            labelPatienSurname = new Label();
+            fldSearchPatient = new TextBox();
             label5 = new Label();
             gridPatients = new DataGridView();
             label4 = new Label();
             label3 = new Label();
             tabVisits = new TabPage();
+            fldNakosaKolposkKontrole = new DateTimePicker();
+            lbNakosaKolposkopijasKontrole = new Label();
             gbVizitePirmreizAtkartota = new GroupBox();
             rbViziteAtkartota = new RadioButton();
             rbVizitePirmreizeja = new RadioButton();
@@ -91,10 +106,11 @@ namespace WinForm
             label2 = new Label();
             tabPage4 = new TabPage();
             cVisitBindingSource = new BindingSource(components);
-            fldNakosaKolposkKontrole = new DateTimePicker();
-            lbNakosaKolposkopijasKontrole = new Label();
+            labelVisitFormPatientName = new Label();
+            labelVisitFormPatientAge = new Label();
             tabControl1.SuspendLayout();
             tabPatients.SuspendLayout();
+            panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)gridPatients).BeginInit();
             tabVisits.SuspendLayout();
             gbVizitePirmreizAtkartota.SuspendLayout();
@@ -117,6 +133,8 @@ namespace WinForm
             // 
             // tabPatients
             // 
+            tabPatients.Controls.Add(panel1);
+            tabPatients.Controls.Add(fldSearchPatient);
             tabPatients.Controls.Add(label5);
             tabPatients.Controls.Add(gridPatients);
             tabPatients.Controls.Add(label4);
@@ -128,6 +146,122 @@ namespace WinForm
             tabPatients.TabIndex = 2;
             tabPatients.Text = "Patients";
             tabPatients.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(fldPatientCity);
+            panel1.Controls.Add(labelCity);
+            panel1.Controls.Add(fldParientHeight);
+            panel1.Controls.Add(labelPatientHeight);
+            panel1.Controls.Add(fldPatientAge);
+            panel1.Controls.Add(labelAge);
+            panel1.Controls.Add(fldPatientName);
+            panel1.Controls.Add(btnAddPatient);
+            panel1.Controls.Add(fldPatientSurname);
+            panel1.Controls.Add(labelPatientName);
+            panel1.Controls.Add(labelPatienSurname);
+            panel1.Location = new System.Drawing.Point(930, 97);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(307, 526);
+            panel1.TabIndex = 11;
+            // 
+            // fldPatientCity
+            // 
+            fldPatientCity.Location = new System.Drawing.Point(112, 228);
+            fldPatientCity.Name = "fldPatientCity";
+            fldPatientCity.Size = new System.Drawing.Size(191, 27);
+            fldPatientCity.TabIndex = 13;
+            // 
+            // labelCity
+            // 
+            labelCity.AutoSize = true;
+            labelCity.Location = new System.Drawing.Point(13, 205);
+            labelCity.Name = "labelCity";
+            labelCity.Size = new System.Drawing.Size(155, 20);
+            labelCity.TabIndex = 12;
+            labelCity.Text = "Dzīvo (Pilsēta, adrese)";
+            // 
+            // fldParientHeight
+            // 
+            fldParientHeight.Location = new System.Drawing.Point(112, 162);
+            fldParientHeight.Name = "fldParientHeight";
+            fldParientHeight.Size = new System.Drawing.Size(191, 27);
+            fldParientHeight.TabIndex = 13;
+            // 
+            // labelPatientHeight
+            // 
+            labelPatientHeight.AutoSize = true;
+            labelPatientHeight.Location = new System.Drawing.Point(13, 165);
+            labelPatientHeight.Name = "labelPatientHeight";
+            labelPatientHeight.Size = new System.Drawing.Size(90, 20);
+            labelPatientHeight.TabIndex = 12;
+            labelPatientHeight.Text = "Augums (m)";
+            // 
+            // fldPatientAge
+            // 
+            fldPatientAge.Location = new System.Drawing.Point(112, 119);
+            fldPatientAge.Name = "fldPatientAge";
+            fldPatientAge.Size = new System.Drawing.Size(191, 27);
+            fldPatientAge.TabIndex = 12;
+            // 
+            // labelAge
+            // 
+            labelAge.AutoSize = true;
+            labelAge.Location = new System.Drawing.Point(13, 122);
+            labelAge.Name = "labelAge";
+            labelAge.Size = new System.Drawing.Size(103, 20);
+            labelAge.TabIndex = 11;
+            labelAge.Text = "Gadi (vecums)";
+            // 
+            // fldPatientName
+            // 
+            fldPatientName.Location = new System.Drawing.Point(112, 27);
+            fldPatientName.Name = "fldPatientName";
+            fldPatientName.Size = new System.Drawing.Size(191, 27);
+            fldPatientName.TabIndex = 8;
+            // 
+            // btnAddPatient
+            // 
+            btnAddPatient.Location = new System.Drawing.Point(13, 299);
+            btnAddPatient.Name = "btnAddPatient";
+            btnAddPatient.Size = new System.Drawing.Size(94, 29);
+            btnAddPatient.TabIndex = 6;
+            btnAddPatient.Text = "Add";
+            btnAddPatient.UseVisualStyleBackColor = true;
+            btnAddPatient.Click += btnAddPatient_Click;
+            // 
+            // fldPatientSurname
+            // 
+            fldPatientSurname.Location = new System.Drawing.Point(112, 73);
+            fldPatientSurname.Name = "fldPatientSurname";
+            fldPatientSurname.Size = new System.Drawing.Size(191, 27);
+            fldPatientSurname.TabIndex = 10;
+            // 
+            // labelPatientName
+            // 
+            labelPatientName.AutoSize = true;
+            labelPatientName.Location = new System.Drawing.Point(13, 30);
+            labelPatientName.Name = "labelPatientName";
+            labelPatientName.Size = new System.Drawing.Size(45, 20);
+            labelPatientName.TabIndex = 7;
+            labelPatientName.Text = "Vārds";
+            // 
+            // labelPatienSurname
+            // 
+            labelPatienSurname.AutoSize = true;
+            labelPatienSurname.Location = new System.Drawing.Point(13, 76);
+            labelPatienSurname.Name = "labelPatienSurname";
+            labelPatienSurname.Size = new System.Drawing.Size(61, 20);
+            labelPatienSurname.TabIndex = 9;
+            labelPatienSurname.Text = "Uzvards";
+            // 
+            // fldSearchPatient
+            // 
+            fldSearchPatient.Location = new System.Drawing.Point(255, 31);
+            fldSearchPatient.Name = "fldSearchPatient";
+            fldSearchPatient.Size = new System.Drawing.Size(319, 27);
+            fldSearchPatient.TabIndex = 5;
+            fldSearchPatient.TextChanged += fldSearchPatient_TextChanged;
             // 
             // label5
             // 
@@ -142,10 +276,10 @@ namespace WinForm
             // gridPatients
             // 
             gridPatients.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            gridPatients.Location = new System.Drawing.Point(46, 73);
+            gridPatients.Location = new System.Drawing.Point(57, 97);
             gridPatients.Name = "gridPatients";
             gridPatients.RowHeadersWidth = 51;
-            gridPatients.Size = new System.Drawing.Size(1179, 528);
+            gridPatients.Size = new System.Drawing.Size(854, 526);
             gridPatients.TabIndex = 3;
             // 
             // label4
@@ -170,6 +304,8 @@ namespace WinForm
             // 
             // tabVisits
             // 
+            tabVisits.Controls.Add(labelVisitFormPatientAge);
+            tabVisits.Controls.Add(labelVisitFormPatientName);
             tabVisits.Controls.Add(fldNakosaKolposkKontrole);
             tabVisits.Controls.Add(lbNakosaKolposkopijasKontrole);
             tabVisits.Controls.Add(gbVizitePirmreizAtkartota);
@@ -223,6 +359,22 @@ namespace WinForm
             tabVisits.TabIndex = 0;
             tabVisits.Text = "Visits";
             tabVisits.UseVisualStyleBackColor = true;
+            // 
+            // fldNakosaKolposkKontrole
+            // 
+            fldNakosaKolposkKontrole.Location = new System.Drawing.Point(869, 652);
+            fldNakosaKolposkKontrole.Name = "fldNakosaKolposkKontrole";
+            fldNakosaKolposkKontrole.Size = new System.Drawing.Size(344, 30);
+            fldNakosaKolposkKontrole.TabIndex = 60;
+            // 
+            // lbNakosaKolposkopijasKontrole
+            // 
+            lbNakosaKolposkopijasKontrole.AutoSize = true;
+            lbNakosaKolposkopijasKontrole.Location = new System.Drawing.Point(540, 652);
+            lbNakosaKolposkopijasKontrole.Name = "lbNakosaKolposkopijasKontrole";
+            lbNakosaKolposkopijasKontrole.Size = new System.Drawing.Size(284, 25);
+            lbNakosaKolposkopijasKontrole.TabIndex = 59;
+            lbNakosaKolposkopijasKontrole.Text = "Nakošā Kolposkopijas Kontrole";
             // 
             // gbVizitePirmreizAtkartota
             // 
@@ -532,7 +684,7 @@ namespace WinForm
             // lbPacientsVecums
             // 
             lbPacientsVecums.AutoSize = true;
-            lbPacientsVecums.Location = new System.Drawing.Point(348, 225);
+            lbPacientsVecums.Location = new System.Drawing.Point(629, 227);
             lbPacientsVecums.Name = "lbPacientsVecums";
             lbPacientsVecums.Size = new System.Drawing.Size(84, 25);
             lbPacientsVecums.TabIndex = 14;
@@ -597,7 +749,7 @@ namespace WinForm
             // lbPatientName
             // 
             lbPatientName.AutoSize = true;
-            lbPatientName.Location = new System.Drawing.Point(28, 225);
+            lbPatientName.Location = new System.Drawing.Point(33, 227);
             lbPatientName.Name = "lbPatientName";
             lbPatientName.Size = new System.Drawing.Size(87, 25);
             lbPatientName.TabIndex = 3;
@@ -689,21 +841,23 @@ namespace WinForm
             // 
             cVisitBindingSource.DataSource = typeof(VisioForge_SDK_Video_Capture_Demo.Models.CVisit);
             // 
-            // fldNakosaKolposkKontrole
+            // labelVisitFormPatientName
             // 
-            fldNakosaKolposkKontrole.Location = new System.Drawing.Point(869, 652);
-            fldNakosaKolposkKontrole.Name = "fldNakosaKolposkKontrole";
-            fldNakosaKolposkKontrole.Size = new System.Drawing.Size(344, 30);
-            fldNakosaKolposkKontrole.TabIndex = 60;
+            labelVisitFormPatientName.AutoSize = true;
+            labelVisitFormPatientName.Location = new System.Drawing.Point(242, 227);
+            labelVisitFormPatientName.Name = "labelVisitFormPatientName";
+            labelVisitFormPatientName.Size = new System.Drawing.Size(177, 25);
+            labelVisitFormPatientName.TabIndex = 61;
+            labelVisitFormPatientName.Text = "value to be present";
             // 
-            // lbNakosaKolposkopijasKontrole
+            // labelVisitFormPatientAge
             // 
-            lbNakosaKolposkopijasKontrole.AutoSize = true;
-            lbNakosaKolposkopijasKontrole.Location = new System.Drawing.Point(540, 652);
-            lbNakosaKolposkopijasKontrole.Name = "lbNakosaKolposkopijasKontrole";
-            lbNakosaKolposkopijasKontrole.Size = new System.Drawing.Size(284, 25);
-            lbNakosaKolposkopijasKontrole.TabIndex = 59;
-            lbNakosaKolposkopijasKontrole.Text = "Nakošā Kolposkopijas Kontrole";
+            labelVisitFormPatientAge.AutoSize = true;
+            labelVisitFormPatientAge.Location = new System.Drawing.Point(746, 227);
+            labelVisitFormPatientAge.Name = "labelVisitFormPatientAge";
+            labelVisitFormPatientAge.Size = new System.Drawing.Size(177, 25);
+            labelVisitFormPatientAge.TabIndex = 62;
+            labelVisitFormPatientAge.Text = "value to be present";
             // 
             // VisitsForm
             // 
@@ -718,6 +872,8 @@ namespace WinForm
             tabControl1.ResumeLayout(false);
             tabPatients.ResumeLayout(false);
             tabPatients.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)gridPatients).EndInit();
             tabVisits.ResumeLayout(false);
             tabVisits.PerformLayout();
@@ -796,5 +952,20 @@ namespace WinForm
         private RadioButton rbVizitePirmreizeja;
         private DateTimePicker fldNakosaKolposkKontrole;
         private Label lbNakosaKolposkopijasKontrole;
+        private TextBox fldSearchPatient;
+        private Button btnAddPatient;
+        private TextBox fldPatientName;
+        private Label labelPatientName;
+        private Panel panel1;
+        private TextBox fldPatientSurname;
+        private Label labelPatienSurname;
+        private TextBox fldPatientCity;
+        private Label labelCity;
+        private TextBox fldParientHeight;
+        private Label labelPatientHeight;
+        private TextBox fldPatientAge;
+        private Label labelAge;
+        private Label labelVisitFormPatientName;
+        private Label labelVisitFormPatientAge;
     }
 }

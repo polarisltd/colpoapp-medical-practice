@@ -14,7 +14,7 @@ namespace VisioForge_SDK_Video_Capture_Demo.Models
     {
         public int Id { get; set; }
         
-        public int PatientId { get; set; }
+        public int? PatientId { get; set; }
 
         public string? IzmeklejumaNr { get; set; }
         //public DateTime? IzmeklejumaDatums { get; set; }
