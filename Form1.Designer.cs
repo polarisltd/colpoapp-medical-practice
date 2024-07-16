@@ -1,5 +1,6 @@
 using VisioForge.Core.Types;
 using System;
+using VisioForge.Core.UI.WinForms;
 
 namespace VisioForge_SDK_Video_Capture_Demo
 {
@@ -117,7 +118,9 @@ namespace VisioForge_SDK_Video_Capture_Demo
             btSaveScreenshot = new System.Windows.Forms.Button();
             btResume = new System.Windows.Forms.Button();
             btPause = new System.Windows.Forms.Button();
-            VideoView1 = new VisioForge.Core.UI.WinForms.VideoView();
+            VideoView1 = new VideoView();
+            label4 = new System.Windows.Forms.Label();
+            lbLastScreenCaptureStatus = new System.Windows.Forms.Label();
             tcMain.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -133,7 +136,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             btStop.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            btStop.Location = new System.Drawing.Point(1271, 899);
+            btStop.Location = new System.Drawing.Point(1271, 903);
             btStop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             btStop.Name = "btStop";
             btStop.Size = new System.Drawing.Size(82, 35);
@@ -146,7 +149,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             btStart.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            btStart.Location = new System.Drawing.Point(1181, 899);
+            btStart.Location = new System.Drawing.Point(1182, 903);
             btStart.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             btStart.Name = "btStart";
             btStart.Size = new System.Drawing.Size(82, 35);
@@ -166,7 +169,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             tcMain.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             tcMain.Name = "tcMain";
             tcMain.SelectedIndex = 0;
-            tcMain.Size = new System.Drawing.Size(504, 930);
+            tcMain.Size = new System.Drawing.Size(504, 942);
             tcMain.TabIndex = 49;
             // 
             // tabPage1
@@ -185,7 +188,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             tabPage1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            tabPage1.Size = new System.Drawing.Size(496, 897);
+            tabPage1.Size = new System.Drawing.Size(496, 909);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Devices";
             tabPage1.UseVisualStyleBackColor = true;
@@ -678,7 +681,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             lbTimestamp.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             lbTimestamp.AutoSize = true;
-            lbTimestamp.Location = new System.Drawing.Point(1421, 858);
+            lbTimestamp.Location = new System.Drawing.Point(1421, 870);
             lbTimestamp.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbTimestamp.Name = "lbTimestamp";
             lbTimestamp.Size = new System.Drawing.Size(172, 20);
@@ -689,7 +692,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             rbCapture.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             rbCapture.AutoSize = true;
-            rbCapture.Location = new System.Drawing.Point(1271, 857);
+            rbCapture.Location = new System.Drawing.Point(1271, 869);
             rbCapture.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             rbCapture.Name = "rbCapture";
             rbCapture.Size = new System.Drawing.Size(82, 24);
@@ -702,7 +705,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             rbPreview.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             rbPreview.AutoSize = true;
             rbPreview.Checked = true;
-            rbPreview.Location = new System.Drawing.Point(1182, 857);
+            rbPreview.Location = new System.Drawing.Point(1182, 869);
             rbPreview.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             rbPreview.Name = "rbPreview";
             rbPreview.Size = new System.Drawing.Size(81, 24);
@@ -714,7 +717,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // btSaveScreenshot
             // 
             btSaveScreenshot.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btSaveScreenshot.Location = new System.Drawing.Point(1639, 899);
+            btSaveScreenshot.Location = new System.Drawing.Point(1630, 908);
             btSaveScreenshot.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             btSaveScreenshot.Name = "btSaveScreenshot";
             btSaveScreenshot.Size = new System.Drawing.Size(138, 35);
@@ -726,7 +729,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // btResume
             // 
             btResume.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btResume.Location = new System.Drawing.Point(1507, 899);
+            btResume.Location = new System.Drawing.Point(1507, 903);
             btResume.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             btResume.Name = "btResume";
             btResume.Size = new System.Drawing.Size(74, 35);
@@ -738,7 +741,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // btPause
             // 
             btPause.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btPause.Location = new System.Drawing.Point(1425, 899);
+            btPause.Location = new System.Drawing.Point(1425, 903);
             btPause.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             btPause.Name = "btPause";
             btPause.Size = new System.Drawing.Size(74, 35);
@@ -757,11 +760,32 @@ namespace VisioForge_SDK_Video_Capture_Demo
             VideoView1.StatusOverlay = null;
             VideoView1.TabIndex = 109;
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new System.Drawing.Point(830, 464);
+            label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(133, 20);
+            label4.TabIndex = 121;
+            label4.Text = "Video input device";
+            // 
+            // lbLastScreenCaptureStatus
+            // 
+            lbLastScreenCaptureStatus.AutoSize = true;
+            lbLastScreenCaptureStatus.Location = new System.Drawing.Point(518, 942);
+            lbLastScreenCaptureStatus.Name = "lbLastScreenCaptureStatus";
+            lbLastScreenCaptureStatus.Size = new System.Drawing.Size(143, 20);
+            lbLastScreenCaptureStatus.TabIndex = 122;
+            lbLastScreenCaptureStatus.Text = "No screenshot taken";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1793, 948);
+            ClientSize = new System.Drawing.Size(1793, 960);
+            Controls.Add(lbLastScreenCaptureStatus);
+            Controls.Add(label4);
             Controls.Add(VideoView1);
             Controls.Add(btSaveScreenshot);
             Controls.Add(btResume);
@@ -855,6 +879,8 @@ namespace VisioForge_SDK_Video_Capture_Demo
         private VisioForge.Core.UI.WinForms.VideoView VideoView1;
         private System.Windows.Forms.CheckBox cbScrollingText;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lbLastScreenCaptureStatus;
     }
 }
 

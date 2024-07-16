@@ -55,6 +55,8 @@ namespace WinForm
             label4 = new Label();
             label3 = new Label();
             tabVisits = new TabPage();
+            labelVisitFormPatientAge = new Label();
+            labelVisitFormPatientName = new Label();
             fldNakosaKolposkKontrole = new DateTimePicker();
             lbNakosaKolposkopijasKontrole = new Label();
             gbVizitePirmreizAtkartota = new GroupBox();
@@ -106,8 +108,6 @@ namespace WinForm
             label2 = new Label();
             tabPage4 = new TabPage();
             cVisitBindingSource = new BindingSource(components);
-            labelVisitFormPatientName = new Label();
-            labelVisitFormPatientAge = new Label();
             tabControl1.SuspendLayout();
             tabPatients.SuspendLayout();
             panel1.SuspendLayout();
@@ -359,6 +359,24 @@ namespace WinForm
             tabVisits.TabIndex = 0;
             tabVisits.Text = "Visits";
             tabVisits.UseVisualStyleBackColor = true;
+            // 
+            // labelVisitFormPatientAge
+            // 
+            labelVisitFormPatientAge.AutoSize = true;
+            labelVisitFormPatientAge.Location = new System.Drawing.Point(746, 227);
+            labelVisitFormPatientAge.Name = "labelVisitFormPatientAge";
+            labelVisitFormPatientAge.Size = new System.Drawing.Size(177, 25);
+            labelVisitFormPatientAge.TabIndex = 62;
+            labelVisitFormPatientAge.Text = "value to be present";
+            // 
+            // labelVisitFormPatientName
+            // 
+            labelVisitFormPatientName.AutoSize = true;
+            labelVisitFormPatientName.Location = new System.Drawing.Point(242, 227);
+            labelVisitFormPatientName.Name = "labelVisitFormPatientName";
+            labelVisitFormPatientName.Size = new System.Drawing.Size(177, 25);
+            labelVisitFormPatientName.TabIndex = 61;
+            labelVisitFormPatientName.Text = "value to be present";
             // 
             // fldNakosaKolposkKontrole
             // 
@@ -840,24 +858,6 @@ namespace WinForm
             // cVisitBindingSource
             // 
             cVisitBindingSource.DataSource = typeof(VisioForge_SDK_Video_Capture_Demo.Models.CVisit);
-            // 
-            // labelVisitFormPatientName
-            // 
-            labelVisitFormPatientName.AutoSize = true;
-            labelVisitFormPatientName.Location = new System.Drawing.Point(242, 227);
-            labelVisitFormPatientName.Name = "labelVisitFormPatientName";
-            labelVisitFormPatientName.Size = new System.Drawing.Size(177, 25);
-            labelVisitFormPatientName.TabIndex = 61;
-            labelVisitFormPatientName.Text = "value to be present";
-            // 
-            // labelVisitFormPatientAge
-            // 
-            labelVisitFormPatientAge.AutoSize = true;
-            labelVisitFormPatientAge.Location = new System.Drawing.Point(746, 227);
-            labelVisitFormPatientAge.Name = "labelVisitFormPatientAge";
-            labelVisitFormPatientAge.Size = new System.Drawing.Size(177, 25);
-            labelVisitFormPatientAge.TabIndex = 62;
-            labelVisitFormPatientAge.Text = "value to be present";
             // 
             // VisitsForm
             // 

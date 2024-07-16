@@ -8,6 +8,7 @@ using System.Globalization;
 
 namespace VisioForge_SDK_Video_Capture_Demo
 {
+    using Colpoapp;
     using Microsoft.Extensions.Configuration;
     using System;
     using System.Diagnostics;
@@ -17,6 +18,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
     using System.Linq;
     using System.Threading.Tasks;
     using System.Windows.Forms;
+    using System.Xml.Linq;
     using VisioForge.Core.Helpers;
     using VisioForge.Core.Types;
     using VisioForge.Core.Types.AudioEffects;
@@ -63,6 +65,8 @@ namespace VisioForge_SDK_Video_Capture_Demo
 
         private VideoCaptureCore VideoCapture1;
 
+        NotifyIcon notifyIcon1 = new NotifyIcon();
+
 
         public IConfiguration Configuration { get; }
 
@@ -70,6 +74,8 @@ namespace VisioForge_SDK_Video_Capture_Demo
         {
             Configuration = ConfigurationHelper.GetConfiguration();
             InitializeComponent();
+            this.KeyPreview = true; // Enable key preview
+            this.KeyDown += new KeyEventHandler(MyForm_KeyDown);
         }
 
         private async Task CreateEngineAsync()
@@ -82,6 +88,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             {
                 // Handle or log the exception here
                 Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
             }
             if (VideoCapture1 != null)
             {
@@ -358,13 +365,28 @@ namespace VisioForge_SDK_Video_Capture_Demo
 
         private void VideoCapture1_OnError(object sender, ErrorsEventArgs e)
         {
+            Log("Cannot open video devices!");
             Log(e.Message);
         }
 
-        private async void btSaveScreenshot_Click(object sender, EventArgs e)
+        private void btSaveScreenshot_Click(object sender, EventArgs e)
         {
             //if (screenshotSaveDialog.ShowDialog(this) == DialogResult.OK)
             //{
+            saveScreenCapture();
+        }
+
+        private void MyForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2 || e.KeyCode == Keys.F3) 
+            {
+                saveScreenCapture(); // Call your method
+            }
+        }
+
+
+        private async void saveScreenCapture()
+        {
             string ext = ".jpg"; // Change this to your desired extension
             string fname = $"VF_{DateTime.Now:yyMMdd-HHmmss}{ext}";
             string directoryPath = Directory.GetCurrentDirectory(); // Gets the current directory
@@ -375,7 +397,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             //fullPath += ext;
             //  var filename = screenshotSaveDialog.FileName;
             //     var ext = Path.GetExtension(filename)?.ToLowerInvariant();
-            Console.WriteLine(filename);
+            Log(filename);
             switch (ext)
             {
                 case ".bmp":
@@ -394,7 +416,30 @@ namespace VisioForge_SDK_Video_Capture_Demo
                     await VideoCapture1.Frame_SaveAsync(filename, ImageFormat.Tiff, 0);
                     break;
             }
-            //}
+            
+            lbLastScreenCaptureStatus.Text = filename;
+            lbLastScreenCaptureStatus.ForeColor = Color.Black;
+
+            UploadClient.UploadFileAsync(filename, UploadResultCallback);
+
+
+
+        }
+        public void UploadResultCallback(bool result)
+        {
+            if (result)
+            {
+                lbLastScreenCaptureStatus.Text += " Success ";
+                lbLastScreenCaptureStatus.ForeColor = Color.Black;
+
+                Debug.WriteLine("Upload successful.");
+            }
+            else
+            {
+                lbLastScreenCaptureStatus.Text += " Failed ";
+                lbLastScreenCaptureStatus.ForeColor = Color.Red;
+                Debug.WriteLine("Upload failed.");
+            }
         }
 
         private void SetMP4Output(ref MP4Output mp4Output)
