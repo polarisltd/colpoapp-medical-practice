@@ -1,6 +1,8 @@
 using VisioForge.Core.Types;
 using System;
 using VisioForge.Core.UI.WinForms;
+using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace VisioForge_SDK_Video_Capture_Demo
 {
@@ -64,24 +66,24 @@ namespace VisioForge_SDK_Video_Capture_Demo
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            btStop = new System.Windows.Forms.Button();
-            btStart = new System.Windows.Forms.Button();
-            tcMain = new System.Windows.Forms.TabControl();
-            tabPage1 = new System.Windows.Forms.TabPage();
-            button1 = new System.Windows.Forms.Button();
-            label1 = new System.Windows.Forms.Label();
+            btStop = new Button();
+            btStart = new Button();
+            tcMain = new TabControl();
+            tabPage1 = new TabPage();
+            button1 = new Button();
+            label1 = new Label();
             cbUseBestVideoInputFormat = new System.Windows.Forms.CheckBox();
-            btVideoCaptureDeviceSettings = new System.Windows.Forms.Button();
-            label18 = new System.Windows.Forms.Label();
-            cbVideoInputFrameRate = new System.Windows.Forms.ComboBox();
-            cbVideoInputFormat = new System.Windows.Forms.ComboBox();
-            cbVideoInputDevice = new System.Windows.Forms.ComboBox();
-            label13 = new System.Windows.Forms.Label();
-            label11 = new System.Windows.Forms.Label();
-            tabPage2 = new System.Windows.Forms.TabPage();
-            cbOutputFormat = new System.Windows.Forms.ComboBox();
-            label7 = new System.Windows.Forms.Label();
-            tabPage3 = new System.Windows.Forms.TabPage();
+            btVideoCaptureDeviceSettings = new Button();
+            label18 = new Label();
+            cbVideoInputFrameRate = new ComboBox();
+            cbVideoInputFormat = new ComboBox();
+            cbVideoInputDevice = new ComboBox();
+            label13 = new Label();
+            label11 = new Label();
+            tabPage2 = new TabPage();
+            cbOutputFormat = new ComboBox();
+            label7 = new Label();
+            tabPage3 = new TabPage();
             cbScrollingText = new System.Windows.Forms.CheckBox();
             cbMergeTextLogos = new System.Windows.Forms.CheckBox();
             cbMergeImageLogos = new System.Windows.Forms.CheckBox();
@@ -89,38 +91,47 @@ namespace VisioForge_SDK_Video_Capture_Demo
             cbFlipX = new System.Windows.Forms.CheckBox();
             cbInvert = new System.Windows.Forms.CheckBox();
             cbGreyscale = new System.Windows.Forms.CheckBox();
-            label201 = new System.Windows.Forms.Label();
-            tbDarkness = new System.Windows.Forms.TrackBar();
-            label200 = new System.Windows.Forms.Label();
-            label199 = new System.Windows.Forms.Label();
-            label198 = new System.Windows.Forms.Label();
-            tbContrast = new System.Windows.Forms.TrackBar();
-            tbLightness = new System.Windows.Forms.TrackBar();
-            tbSaturation = new System.Windows.Forms.TrackBar();
-            label3 = new System.Windows.Forms.Label();
-            btTextLogoAdd = new System.Windows.Forms.Button();
-            btLogoRemove = new System.Windows.Forms.Button();
-            btLogoEdit = new System.Windows.Forms.Button();
-            lbLogos = new System.Windows.Forms.ListBox();
-            btImageLogoAdd = new System.Windows.Forms.Button();
-            label2 = new System.Windows.Forms.Label();
-            tabPage4 = new System.Windows.Forms.TabPage();
+            label201 = new Label();
+            tbDarkness = new TrackBar();
+            label200 = new Label();
+            label199 = new Label();
+            label198 = new Label();
+            tbContrast = new TrackBar();
+            tbLightness = new TrackBar();
+            tbSaturation = new TrackBar();
+            label3 = new Label();
+            btTextLogoAdd = new Button();
+            btLogoRemove = new Button();
+            btLogoEdit = new Button();
+            lbLogos = new ListBox();
+            btImageLogoAdd = new Button();
+            label2 = new Label();
+            tabZoom = new TabPage();
+            groupBox37 = new System.Windows.Forms.GroupBox();
+            btEffZoomRight = new Button();
+            btEffZoomLeft = new Button();
+            btEffZoomOut = new Button();
+            btEffZoomIn = new Button();
+            btEffZoomDown = new Button();
+            btEffZoomUp = new Button();
+            cbZoom = new System.Windows.Forms.CheckBox();
+            tabPage4 = new TabPage();
             cbDebugMode = new System.Windows.Forms.CheckBox();
-            mmLog = new System.Windows.Forms.TextBox();
-            saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
-            fontDialog1 = new System.Windows.Forms.FontDialog();
-            llVideoTutorials = new System.Windows.Forms.LinkLabel();
-            label34 = new System.Windows.Forms.Label();
-            lbTimestamp = new System.Windows.Forms.Label();
+            mmLog = new TextBox();
+            saveFileDialog1 = new SaveFileDialog();
+            openFileDialog2 = new OpenFileDialog();
+            fontDialog1 = new FontDialog();
+            llVideoTutorials = new LinkLabel();
+            label34 = new Label();
+            lbTimestamp = new Label();
             rbCapture = new System.Windows.Forms.RadioButton();
             rbPreview = new System.Windows.Forms.RadioButton();
-            btSaveScreenshot = new System.Windows.Forms.Button();
-            btResume = new System.Windows.Forms.Button();
-            btPause = new System.Windows.Forms.Button();
+            btSaveScreenshot = new Button();
+            btResume = new Button();
+            btPause = new Button();
             VideoView1 = new VideoView();
-            label4 = new System.Windows.Forms.Label();
-            lbLastScreenCaptureStatus = new System.Windows.Forms.Label();
+            label4 = new Label();
+            lbLastScreenCaptureStatus = new Label();
             tcMain.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -129,15 +140,17 @@ namespace VisioForge_SDK_Video_Capture_Demo
             ((System.ComponentModel.ISupportInitialize)tbContrast).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tbLightness).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tbSaturation).BeginInit();
+            tabZoom.SuspendLayout();
+            groupBox37.SuspendLayout();
             tabPage4.SuspendLayout();
             SuspendLayout();
             // 
             // btStop
             // 
-            btStop.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btStop.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             btStop.Location = new System.Drawing.Point(1271, 903);
-            btStop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            btStop.Margin = new Padding(4, 5, 4, 5);
             btStop.Name = "btStop";
             btStop.Size = new System.Drawing.Size(82, 35);
             btStop.TabIndex = 54;
@@ -147,10 +160,10 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             // btStart
             // 
-            btStart.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btStart.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             btStart.Location = new System.Drawing.Point(1182, 903);
-            btStart.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            btStart.Margin = new Padding(4, 5, 4, 5);
             btStart.Name = "btStart";
             btStart.Size = new System.Drawing.Size(82, 35);
             btStart.TabIndex = 53;
@@ -160,13 +173,14 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             // tcMain
             // 
-            tcMain.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            tcMain.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             tcMain.Controls.Add(tabPage1);
             tcMain.Controls.Add(tabPage2);
             tcMain.Controls.Add(tabPage3);
+            tcMain.Controls.Add(tabZoom);
             tcMain.Controls.Add(tabPage4);
             tcMain.Location = new System.Drawing.Point(4, 5);
-            tcMain.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tcMain.Margin = new Padding(4, 5, 4, 5);
             tcMain.Name = "tcMain";
             tcMain.SelectedIndex = 0;
             tcMain.Size = new System.Drawing.Size(504, 942);
@@ -185,9 +199,9 @@ namespace VisioForge_SDK_Video_Capture_Demo
             tabPage1.Controls.Add(label13);
             tabPage1.Controls.Add(label11);
             tabPage1.Location = new System.Drawing.Point(4, 29);
-            tabPage1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tabPage1.Margin = new Padding(4, 5, 4, 5);
             tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tabPage1.Padding = new Padding(4, 5, 4, 5);
             tabPage1.Size = new System.Drawing.Size(496, 909);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Devices";
@@ -207,7 +221,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             label1.AutoSize = true;
             label1.Location = new System.Drawing.Point(452, 142);
-            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(29, 20);
             label1.TabIndex = 128;
@@ -217,7 +231,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             cbUseBestVideoInputFormat.AutoSize = true;
             cbUseBestVideoInputFormat.Location = new System.Drawing.Point(250, 110);
-            cbUseBestVideoInputFormat.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cbUseBestVideoInputFormat.Margin = new Padding(4, 5, 4, 5);
             cbUseBestVideoInputFormat.Name = "cbUseBestVideoInputFormat";
             cbUseBestVideoInputFormat.Size = new System.Drawing.Size(87, 24);
             cbUseBestVideoInputFormat.TabIndex = 127;
@@ -228,7 +242,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // btVideoCaptureDeviceSettings
             // 
             btVideoCaptureDeviceSettings.Location = new System.Drawing.Point(358, 52);
-            btVideoCaptureDeviceSettings.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            btVideoCaptureDeviceSettings.Margin = new Padding(4, 5, 4, 5);
             btVideoCaptureDeviceSettings.Name = "btVideoCaptureDeviceSettings";
             btVideoCaptureDeviceSettings.Size = new System.Drawing.Size(88, 35);
             btVideoCaptureDeviceSettings.TabIndex = 126;
@@ -240,7 +254,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             label18.AutoSize = true;
             label18.Location = new System.Drawing.Point(354, 112);
-            label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label18.Margin = new Padding(4, 0, 4, 0);
             label18.Name = "label18";
             label18.Size = new System.Drawing.Size(80, 20);
             label18.TabIndex = 125;
@@ -248,20 +262,20 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             // cbVideoInputFrameRate
             // 
-            cbVideoInputFrameRate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbVideoInputFrameRate.DropDownStyle = ComboBoxStyle.DropDownList;
             cbVideoInputFrameRate.FormattingEnabled = true;
             cbVideoInputFrameRate.Location = new System.Drawing.Point(358, 137);
-            cbVideoInputFrameRate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cbVideoInputFrameRate.Margin = new Padding(4, 5, 4, 5);
             cbVideoInputFrameRate.Name = "cbVideoInputFrameRate";
             cbVideoInputFrameRate.Size = new System.Drawing.Size(86, 28);
             cbVideoInputFrameRate.TabIndex = 124;
             // 
             // cbVideoInputFormat
             // 
-            cbVideoInputFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbVideoInputFormat.DropDownStyle = ComboBoxStyle.DropDownList;
             cbVideoInputFormat.FormattingEnabled = true;
             cbVideoInputFormat.Location = new System.Drawing.Point(12, 137);
-            cbVideoInputFormat.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cbVideoInputFormat.Margin = new Padding(4, 5, 4, 5);
             cbVideoInputFormat.Name = "cbVideoInputFormat";
             cbVideoInputFormat.Size = new System.Drawing.Size(328, 28);
             cbVideoInputFormat.TabIndex = 123;
@@ -269,10 +283,10 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             // cbVideoInputDevice
             // 
-            cbVideoInputDevice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbVideoInputDevice.DropDownStyle = ComboBoxStyle.DropDownList;
             cbVideoInputDevice.FormattingEnabled = true;
             cbVideoInputDevice.Location = new System.Drawing.Point(12, 55);
-            cbVideoInputDevice.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cbVideoInputDevice.Margin = new Padding(4, 5, 4, 5);
             cbVideoInputDevice.Name = "cbVideoInputDevice";
             cbVideoInputDevice.Size = new System.Drawing.Size(328, 28);
             cbVideoInputDevice.TabIndex = 122;
@@ -282,7 +296,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             label13.AutoSize = true;
             label13.Location = new System.Drawing.Point(6, 112);
-            label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label13.Margin = new Padding(4, 0, 4, 0);
             label13.Name = "label13";
             label13.Size = new System.Drawing.Size(135, 20);
             label13.TabIndex = 121;
@@ -292,7 +306,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             label11.AutoSize = true;
             label11.Location = new System.Drawing.Point(8, 30);
-            label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label11.Margin = new Padding(4, 0, 4, 0);
             label11.Name = "label11";
             label11.Size = new System.Drawing.Size(133, 20);
             label11.TabIndex = 120;
@@ -303,21 +317,21 @@ namespace VisioForge_SDK_Video_Capture_Demo
             tabPage2.Controls.Add(cbOutputFormat);
             tabPage2.Controls.Add(label7);
             tabPage2.Location = new System.Drawing.Point(4, 29);
-            tabPage2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tabPage2.Margin = new Padding(4, 5, 4, 5);
             tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            tabPage2.Size = new System.Drawing.Size(496, 897);
+            tabPage2.Padding = new Padding(4, 5, 4, 5);
+            tabPage2.Size = new System.Drawing.Size(496, 909);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Output";
             tabPage2.UseVisualStyleBackColor = true;
             // 
             // cbOutputFormat
             // 
-            cbOutputFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbOutputFormat.DropDownStyle = ComboBoxStyle.DropDownList;
             cbOutputFormat.FormattingEnabled = true;
             cbOutputFormat.Items.AddRange(new object[] { "AVI", "WMV (Windows Media Video)", "MP4 (CPU)", "MP4 (GPU: Intel, Nvidia, AMD/ATI)", "Animated GIF", "MPEG-TS", "MOV" });
             cbOutputFormat.Location = new System.Drawing.Point(22, 50);
-            cbOutputFormat.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cbOutputFormat.Margin = new Padding(4, 5, 4, 5);
             cbOutputFormat.Name = "cbOutputFormat";
             cbOutputFormat.Size = new System.Drawing.Size(462, 28);
             cbOutputFormat.TabIndex = 122;
@@ -326,7 +340,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             label7.AutoSize = true;
             label7.Location = new System.Drawing.Point(18, 25);
-            label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(56, 20);
             label7.TabIndex = 120;
@@ -357,10 +371,10 @@ namespace VisioForge_SDK_Video_Capture_Demo
             tabPage3.Controls.Add(btImageLogoAdd);
             tabPage3.Controls.Add(label2);
             tabPage3.Location = new System.Drawing.Point(4, 29);
-            tabPage3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tabPage3.Margin = new Padding(4, 5, 4, 5);
             tabPage3.Name = "tabPage3";
-            tabPage3.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            tabPage3.Size = new System.Drawing.Size(496, 897);
+            tabPage3.Padding = new Padding(4, 5, 4, 5);
+            tabPage3.Size = new System.Drawing.Size(496, 909);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Video effects";
             tabPage3.UseVisualStyleBackColor = true;
@@ -369,7 +383,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             cbScrollingText.AutoSize = true;
             cbScrollingText.Location = new System.Drawing.Point(70, 535);
-            cbScrollingText.Margin = new System.Windows.Forms.Padding(2);
+            cbScrollingText.Margin = new Padding(2);
             cbScrollingText.Name = "cbScrollingText";
             cbScrollingText.Size = new System.Drawing.Size(170, 24);
             cbScrollingText.TabIndex = 88;
@@ -381,7 +395,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             cbMergeTextLogos.AutoSize = true;
             cbMergeTextLogos.Location = new System.Drawing.Point(250, 238);
-            cbMergeTextLogos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cbMergeTextLogos.Margin = new Padding(4, 5, 4, 5);
             cbMergeTextLogos.Name = "cbMergeTextLogos";
             cbMergeTextLogos.Size = new System.Drawing.Size(203, 24);
             cbMergeTextLogos.TabIndex = 87;
@@ -392,7 +406,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             cbMergeImageLogos.AutoSize = true;
             cbMergeImageLogos.Location = new System.Drawing.Point(16, 238);
-            cbMergeImageLogos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cbMergeImageLogos.Margin = new Padding(4, 5, 4, 5);
             cbMergeImageLogos.Name = "cbMergeImageLogos";
             cbMergeImageLogos.Size = new System.Drawing.Size(220, 24);
             cbMergeImageLogos.TabIndex = 86;
@@ -403,7 +417,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             cbFlipY.AutoSize = true;
             cbFlipY.Location = new System.Drawing.Point(336, 505);
-            cbFlipY.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cbFlipY.Margin = new Padding(4, 5, 4, 5);
             cbFlipY.Name = "cbFlipY";
             cbFlipY.Size = new System.Drawing.Size(67, 24);
             cbFlipY.TabIndex = 85;
@@ -415,7 +429,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             cbFlipX.AutoSize = true;
             cbFlipX.Location = new System.Drawing.Point(256, 505);
-            cbFlipX.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cbFlipX.Margin = new Padding(4, 5, 4, 5);
             cbFlipX.Name = "cbFlipX";
             cbFlipX.Size = new System.Drawing.Size(68, 24);
             cbFlipX.TabIndex = 84;
@@ -426,9 +440,9 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // cbInvert
             // 
             cbInvert.AutoSize = true;
-            cbInvert.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            cbInvert.BackgroundImageLayout = ImageLayout.Center;
             cbInvert.Location = new System.Drawing.Point(176, 505);
-            cbInvert.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cbInvert.Margin = new Padding(4, 5, 4, 5);
             cbInvert.Name = "cbInvert";
             cbInvert.Size = new System.Drawing.Size(68, 24);
             cbInvert.TabIndex = 83;
@@ -440,7 +454,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             cbGreyscale.AutoSize = true;
             cbGreyscale.Location = new System.Drawing.Point(70, 505);
-            cbGreyscale.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cbGreyscale.Margin = new Padding(4, 5, 4, 5);
             cbGreyscale.Name = "cbGreyscale";
             cbGreyscale.Size = new System.Drawing.Size(94, 24);
             cbGreyscale.TabIndex = 82;
@@ -452,7 +466,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             label201.AutoSize = true;
             label201.Location = new System.Drawing.Point(246, 397);
-            label201.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label201.Margin = new Padding(4, 0, 4, 0);
             label201.Name = "label201";
             label201.Size = new System.Drawing.Size(68, 20);
             label201.TabIndex = 81;
@@ -462,7 +476,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             tbDarkness.BackColor = System.Drawing.SystemColors.Window;
             tbDarkness.Location = new System.Drawing.Point(246, 426);
-            tbDarkness.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tbDarkness.Margin = new Padding(4, 5, 4, 5);
             tbDarkness.Maximum = 255;
             tbDarkness.Name = "tbDarkness";
             tbDarkness.Size = new System.Drawing.Size(174, 56);
@@ -473,7 +487,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             label200.AutoSize = true;
             label200.Location = new System.Drawing.Point(66, 397);
-            label200.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label200.Margin = new Padding(4, 0, 4, 0);
             label200.Name = "label200";
             label200.Size = new System.Drawing.Size(64, 20);
             label200.TabIndex = 76;
@@ -483,7 +497,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             label199.AutoSize = true;
             label199.Location = new System.Drawing.Point(246, 317);
-            label199.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label199.Margin = new Padding(4, 0, 4, 0);
             label199.Name = "label199";
             label199.Size = new System.Drawing.Size(77, 20);
             label199.TabIndex = 75;
@@ -493,7 +507,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             label198.AutoSize = true;
             label198.Location = new System.Drawing.Point(66, 317);
-            label198.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label198.Margin = new Padding(4, 0, 4, 0);
             label198.Name = "label198";
             label198.Size = new System.Drawing.Size(70, 20);
             label198.TabIndex = 74;
@@ -503,7 +517,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             tbContrast.BackColor = System.Drawing.SystemColors.Window;
             tbContrast.Location = new System.Drawing.Point(62, 426);
-            tbContrast.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tbContrast.Margin = new Padding(4, 5, 4, 5);
             tbContrast.Maximum = 255;
             tbContrast.Name = "tbContrast";
             tbContrast.Size = new System.Drawing.Size(174, 56);
@@ -514,7 +528,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             tbLightness.BackColor = System.Drawing.SystemColors.Window;
             tbLightness.Location = new System.Drawing.Point(62, 340);
-            tbLightness.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tbLightness.Margin = new Padding(4, 5, 4, 5);
             tbLightness.Maximum = 255;
             tbLightness.Name = "tbLightness";
             tbLightness.Size = new System.Drawing.Size(174, 56);
@@ -525,7 +539,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             tbSaturation.BackColor = System.Drawing.SystemColors.Window;
             tbSaturation.Location = new System.Drawing.Point(246, 340);
-            tbSaturation.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tbSaturation.Margin = new Padding(4, 5, 4, 5);
             tbSaturation.Maximum = 255;
             tbSaturation.Name = "tbSaturation";
             tbSaturation.Size = new System.Drawing.Size(174, 56);
@@ -537,7 +551,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             label3.AutoSize = true;
             label3.Location = new System.Drawing.Point(12, 14);
-            label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(133, 20);
             label3.TabIndex = 69;
@@ -546,7 +560,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // btTextLogoAdd
             // 
             btTextLogoAdd.Location = new System.Drawing.Point(156, 194);
-            btTextLogoAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            btTextLogoAdd.Margin = new Padding(4, 5, 4, 5);
             btTextLogoAdd.Name = "btTextLogoAdd";
             btTextLogoAdd.Size = new System.Drawing.Size(132, 35);
             btTextLogoAdd.TabIndex = 68;
@@ -557,7 +571,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // btLogoRemove
             // 
             btLogoRemove.Location = new System.Drawing.Point(398, 194);
-            btLogoRemove.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            btLogoRemove.Margin = new Padding(4, 5, 4, 5);
             btLogoRemove.Name = "btLogoRemove";
             btLogoRemove.Size = new System.Drawing.Size(78, 35);
             btLogoRemove.TabIndex = 67;
@@ -568,7 +582,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // btLogoEdit
             // 
             btLogoEdit.Location = new System.Drawing.Point(310, 194);
-            btLogoEdit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            btLogoEdit.Margin = new Padding(4, 5, 4, 5);
             btLogoEdit.Name = "btLogoEdit";
             btLogoEdit.Size = new System.Drawing.Size(78, 35);
             btLogoEdit.TabIndex = 66;
@@ -580,7 +594,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             lbLogos.FormattingEnabled = true;
             lbLogos.Location = new System.Drawing.Point(16, 38);
-            lbLogos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            lbLogos.Margin = new Padding(4, 5, 4, 5);
             lbLogos.Name = "lbLogos";
             lbLogos.Size = new System.Drawing.Size(458, 144);
             lbLogos.TabIndex = 65;
@@ -588,7 +602,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // btImageLogoAdd
             // 
             btImageLogoAdd.Location = new System.Drawing.Point(16, 194);
-            btImageLogoAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            btImageLogoAdd.Margin = new Padding(4, 5, 4, 5);
             btImageLogoAdd.Name = "btImageLogoAdd";
             btImageLogoAdd.Size = new System.Drawing.Size(132, 35);
             btImageLogoAdd.TabIndex = 64;
@@ -600,21 +614,129 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             label2.AutoSize = true;
             label2.Location = new System.Drawing.Point(90, 580);
-            label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(338, 20);
             label2.TabIndex = 63;
             label2.Text = "More effects and settings available in Main Demo";
+            // 
+            // tabZoom
+            // 
+            tabZoom.Controls.Add(groupBox37);
+            tabZoom.Controls.Add(cbZoom);
+            tabZoom.Location = new System.Drawing.Point(4, 29);
+            tabZoom.Margin = new Padding(2);
+            tabZoom.Name = "tabZoom";
+            tabZoom.Padding = new Padding(2);
+            tabZoom.Size = new System.Drawing.Size(496, 909);
+            tabZoom.TabIndex = 2;
+            tabZoom.Text = "Zoom";
+            tabZoom.UseVisualStyleBackColor = true;
+            // 
+            // groupBox37
+            // 
+            groupBox37.Controls.Add(btEffZoomRight);
+            groupBox37.Controls.Add(btEffZoomLeft);
+            groupBox37.Controls.Add(btEffZoomOut);
+            groupBox37.Controls.Add(btEffZoomIn);
+            groupBox37.Controls.Add(btEffZoomDown);
+            groupBox37.Controls.Add(btEffZoomUp);
+            groupBox37.Location = new System.Drawing.Point(110, 82);
+            groupBox37.Margin = new Padding(3, 6, 3, 6);
+            groupBox37.Name = "groupBox37";
+            groupBox37.Padding = new Padding(3, 6, 3, 6);
+            groupBox37.Size = new System.Drawing.Size(159, 160);
+            groupBox37.TabIndex = 16;
+            groupBox37.TabStop = false;
+            groupBox37.Text = "Zoom";
+            // 
+            // btEffZoomRight
+            // 
+            btEffZoomRight.Location = new System.Drawing.Point(113, 50);
+            btEffZoomRight.Margin = new Padding(3, 6, 3, 6);
+            btEffZoomRight.Name = "btEffZoomRight";
+            btEffZoomRight.Size = new System.Drawing.Size(29, 74);
+            btEffZoomRight.TabIndex = 5;
+            btEffZoomRight.Text = "R";
+            btEffZoomRight.UseVisualStyleBackColor = true;
+            btEffZoomRight.Click += btEffZoomRight_Click;
+            // 
+            // btEffZoomLeft
+            // 
+            btEffZoomLeft.Location = new System.Drawing.Point(17, 50);
+            btEffZoomLeft.Margin = new Padding(3, 6, 3, 6);
+            btEffZoomLeft.Name = "btEffZoomLeft";
+            btEffZoomLeft.Size = new System.Drawing.Size(29, 74);
+            btEffZoomLeft.TabIndex = 4;
+            btEffZoomLeft.Text = "L";
+            btEffZoomLeft.UseVisualStyleBackColor = true;
+            btEffZoomLeft.Click += btEffZoomLeft_Click;
+            // 
+            // btEffZoomOut
+            // 
+            btEffZoomOut.Location = new System.Drawing.Point(81, 70);
+            btEffZoomOut.Margin = new Padding(3, 6, 3, 6);
+            btEffZoomOut.Name = "btEffZoomOut";
+            btEffZoomOut.Size = new System.Drawing.Size(31, 34);
+            btEffZoomOut.TabIndex = 3;
+            btEffZoomOut.Text = "-";
+            btEffZoomOut.UseVisualStyleBackColor = true;
+            btEffZoomOut.Click += btEffZoomOut_Click;
+            // 
+            // btEffZoomIn
+            // 
+            btEffZoomIn.Location = new System.Drawing.Point(47, 70);
+            btEffZoomIn.Margin = new Padding(3, 6, 3, 6);
+            btEffZoomIn.Name = "btEffZoomIn";
+            btEffZoomIn.Size = new System.Drawing.Size(30, 34);
+            btEffZoomIn.TabIndex = 2;
+            btEffZoomIn.Text = "+";
+            btEffZoomIn.UseVisualStyleBackColor = true;
+            btEffZoomIn.Click += btEffZoomIn_Click;
+            // 
+            // btEffZoomDown
+            // 
+            btEffZoomDown.Location = new System.Drawing.Point(46, 106);
+            btEffZoomDown.Margin = new Padding(3, 6, 3, 6);
+            btEffZoomDown.Name = "btEffZoomDown";
+            btEffZoomDown.Size = new System.Drawing.Size(67, 34);
+            btEffZoomDown.TabIndex = 1;
+            btEffZoomDown.Text = "Down";
+            btEffZoomDown.UseVisualStyleBackColor = true;
+            btEffZoomDown.Click += btEffZoomDown_Click;
+            // 
+            // btEffZoomUp
+            // 
+            btEffZoomUp.Location = new System.Drawing.Point(46, 30);
+            btEffZoomUp.Margin = new Padding(3, 6, 3, 6);
+            btEffZoomUp.Name = "btEffZoomUp";
+            btEffZoomUp.Size = new System.Drawing.Size(67, 34);
+            btEffZoomUp.TabIndex = 0;
+            btEffZoomUp.Text = "Up";
+            btEffZoomUp.UseVisualStyleBackColor = true;
+            btEffZoomUp.Click += btEffZoomUp_Click;
+            // 
+            // cbZoom
+            // 
+            cbZoom.AutoSize = true;
+            cbZoom.Location = new System.Drawing.Point(12, 28);
+            cbZoom.Margin = new Padding(3, 6, 3, 6);
+            cbZoom.Name = "cbZoom";
+            cbZoom.Size = new System.Drawing.Size(85, 24);
+            cbZoom.TabIndex = 15;
+            cbZoom.Text = "Enabled";
+            cbZoom.UseVisualStyleBackColor = true;
+            cbZoom.CheckedChanged += cbZoom_CheckedChanged;
             // 
             // tabPage4
             // 
             tabPage4.Controls.Add(cbDebugMode);
             tabPage4.Controls.Add(mmLog);
             tabPage4.Location = new System.Drawing.Point(4, 29);
-            tabPage4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tabPage4.Margin = new Padding(4, 5, 4, 5);
             tabPage4.Name = "tabPage4";
-            tabPage4.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            tabPage4.Size = new System.Drawing.Size(496, 897);
+            tabPage4.Padding = new Padding(4, 5, 4, 5);
+            tabPage4.Size = new System.Drawing.Size(496, 909);
             tabPage4.TabIndex = 3;
             tabPage4.Text = "Log";
             tabPage4.UseVisualStyleBackColor = true;
@@ -623,7 +745,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             cbDebugMode.AutoSize = true;
             cbDebugMode.Location = new System.Drawing.Point(14, 17);
-            cbDebugMode.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            cbDebugMode.Margin = new Padding(4, 5, 4, 5);
             cbDebugMode.Name = "cbDebugMode";
             cbDebugMode.Size = new System.Drawing.Size(119, 24);
             cbDebugMode.TabIndex = 78;
@@ -632,12 +754,12 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             // mmLog
             // 
-            mmLog.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            mmLog.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             mmLog.Location = new System.Drawing.Point(14, 52);
-            mmLog.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            mmLog.Margin = new Padding(4, 5, 4, 5);
             mmLog.Multiline = true;
             mmLog.Name = "mmLog";
-            mmLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            mmLog.ScrollBars = ScrollBars.Vertical;
             mmLog.Size = new System.Drawing.Size(460, 550);
             mmLog.TabIndex = 77;
             // 
@@ -654,11 +776,11 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             // llVideoTutorials
             // 
-            llVideoTutorials.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            llVideoTutorials.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             llVideoTutorials.AutoSize = true;
             llVideoTutorials.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             llVideoTutorials.Location = new System.Drawing.Point(1628, 5);
-            llVideoTutorials.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            llVideoTutorials.Margin = new Padding(4, 0, 4, 0);
             llVideoTutorials.Name = "llVideoTutorials";
             llVideoTutorials.Size = new System.Drawing.Size(140, 20);
             llVideoTutorials.TabIndex = 92;
@@ -668,10 +790,10 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             // label34
             // 
-            label34.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            label34.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label34.AutoSize = true;
             label34.Location = new System.Drawing.Point(1331, 5);
-            label34.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label34.Margin = new Padding(4, 0, 4, 0);
             label34.Name = "label34";
             label34.Size = new System.Drawing.Size(303, 20);
             label34.TabIndex = 97;
@@ -679,10 +801,10 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             // lbTimestamp
             // 
-            lbTimestamp.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            lbTimestamp.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             lbTimestamp.AutoSize = true;
             lbTimestamp.Location = new System.Drawing.Point(1421, 870);
-            lbTimestamp.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbTimestamp.Margin = new Padding(4, 0, 4, 0);
             lbTimestamp.Name = "lbTimestamp";
             lbTimestamp.Size = new System.Drawing.Size(172, 20);
             lbTimestamp.TabIndex = 105;
@@ -690,10 +812,10 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             // rbCapture
             // 
-            rbCapture.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            rbCapture.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             rbCapture.AutoSize = true;
             rbCapture.Location = new System.Drawing.Point(1271, 869);
-            rbCapture.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            rbCapture.Margin = new Padding(4, 5, 4, 5);
             rbCapture.Name = "rbCapture";
             rbCapture.Size = new System.Drawing.Size(82, 24);
             rbCapture.TabIndex = 104;
@@ -702,11 +824,11 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             // rbPreview
             // 
-            rbPreview.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            rbPreview.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             rbPreview.AutoSize = true;
             rbPreview.Checked = true;
             rbPreview.Location = new System.Drawing.Point(1182, 869);
-            rbPreview.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            rbPreview.Margin = new Padding(4, 5, 4, 5);
             rbPreview.Name = "rbPreview";
             rbPreview.Size = new System.Drawing.Size(81, 24);
             rbPreview.TabIndex = 103;
@@ -716,9 +838,9 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             // btSaveScreenshot
             // 
-            btSaveScreenshot.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btSaveScreenshot.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btSaveScreenshot.Location = new System.Drawing.Point(1630, 908);
-            btSaveScreenshot.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            btSaveScreenshot.Margin = new Padding(4, 5, 4, 5);
             btSaveScreenshot.Name = "btSaveScreenshot";
             btSaveScreenshot.Size = new System.Drawing.Size(138, 35);
             btSaveScreenshot.TabIndex = 108;
@@ -728,9 +850,9 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             // btResume
             // 
-            btResume.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btResume.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btResume.Location = new System.Drawing.Point(1507, 903);
-            btResume.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            btResume.Margin = new Padding(4, 5, 4, 5);
             btResume.Name = "btResume";
             btResume.Size = new System.Drawing.Size(74, 35);
             btResume.TabIndex = 107;
@@ -740,9 +862,9 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             // btPause
             // 
-            btPause.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btPause.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btPause.Location = new System.Drawing.Point(1425, 903);
-            btPause.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            btPause.Margin = new Padding(4, 5, 4, 5);
             btPause.Name = "btPause";
             btPause.Size = new System.Drawing.Size(74, 35);
             btPause.TabIndex = 106;
@@ -754,7 +876,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             VideoView1.BackColor = System.Drawing.Color.Black;
             VideoView1.Location = new System.Drawing.Point(518, 38);
-            VideoView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            VideoView1.Margin = new Padding(4, 5, 4, 5);
             VideoView1.Name = "VideoView1";
             VideoView1.Size = new System.Drawing.Size(1250, 809);
             VideoView1.StatusOverlay = null;
@@ -764,7 +886,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             label4.AutoSize = true;
             label4.Location = new System.Drawing.Point(830, 464);
-            label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(133, 20);
             label4.TabIndex = 121;
@@ -782,7 +904,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // Form1
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1793, 960);
             Controls.Add(lbLastScreenCaptureStatus);
             Controls.Add(label4);
@@ -799,7 +921,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             Controls.Add(btStart);
             Controls.Add(tcMain);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
-            Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            Margin = new Padding(4, 5, 4, 5);
             MaximizeBox = false;
             Name = "Form1";
             Text = "Simple Video Capture Demo - Video Capture SDK .Net";
@@ -816,6 +938,9 @@ namespace VisioForge_SDK_Video_Capture_Demo
             ((System.ComponentModel.ISupportInitialize)tbContrast).EndInit();
             ((System.ComponentModel.ISupportInitialize)tbLightness).EndInit();
             ((System.ComponentModel.ISupportInitialize)tbSaturation).EndInit();
+            tabZoom.ResumeLayout(false);
+            tabZoom.PerformLayout();
+            groupBox37.ResumeLayout(false);
             tabPage4.ResumeLayout(false);
             tabPage4.PerformLayout();
             ResumeLayout(false);
@@ -831,6 +956,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage tabZoom;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
         private System.Windows.Forms.FontDialog fontDialog1;
@@ -881,6 +1007,15 @@ namespace VisioForge_SDK_Video_Capture_Demo
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lbLastScreenCaptureStatus;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox groupBox37;
+        private System.Windows.Forms.CheckBox cbZoom;
+        private System.Windows.Forms.Button btEffZoomRight;
+        private System.Windows.Forms.Button btEffZoomLeft;
+        private System.Windows.Forms.Button btEffZoomOut;
+        private System.Windows.Forms.Button btEffZoomIn;
+        private System.Windows.Forms.Button btEffZoomDown;
+        private System.Windows.Forms.Button btEffZoomUp;
     }
 }
 

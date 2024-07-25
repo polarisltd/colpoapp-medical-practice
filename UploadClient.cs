@@ -4,25 +4,29 @@ using System.Threading.Tasks;
 using System.IO;
 using Sentry.Protocol;
 using System.Diagnostics;
+using System.Configuration;
 
 namespace Colpoapp
 {
     public class UploadClient
     {
 
-        public static void UploadFile(string filePath)
+        public static void UploadFile(string filePath, string uploadFileUrl)
         {
-            UploadFileAsync(filePath,UploadResultCallback);
+            UploadFileAsync(filePath, uploadFileUrl, UploadResultCallback);
         }
 
-        public static async Task UploadFileAsync(string filePath, Action<bool> callback)
+        public static async Task UploadFileAsync(string filePath, string uploadFileUrl, Action<bool> callback)
         {
-            var url = "http://localhost:8081/uploadFile"; // Update with the actual URL
+            //var url = "http://localhost:8081/uploadFile"; // Update with the actual URL
+            
+            //var url =  this.Configuration.GetSection("").Value;
+
             if (File.Exists(filePath))
             {
                 FileInfo fileInfo = new FileInfo(filePath);
                 long fileSize = fileInfo.Length; // Size in bytes
-                Debug.WriteLine($"Uploading file: {filePath}, size: {fileSize}, url: {url}");
+                Debug.WriteLine($"Uploading file: {filePath}, size: {fileSize}, url: {uploadFileUrl}");
             }
             else
             {
@@ -44,7 +48,7 @@ namespace Colpoapp
                     };
                     content.Add(fileContent);
 
-                    var response = await client.PostAsync(url, content);
+                    var response = await client.PostAsync(uploadFileUrl, content);
                     if (response.IsSuccessStatusCode)
                     {
                         callback(true);

@@ -67,6 +67,13 @@ namespace VisioForge_SDK_Video_Capture_Demo
 
         NotifyIcon notifyIcon1 = new NotifyIcon();
 
+        // Zoom
+        private double zoom = 1.0;
+
+        private int zoomShiftX;
+
+        private int zoomShiftY;
+
 
         public IConfiguration Configuration { get; }
 
@@ -312,6 +319,81 @@ namespace VisioForge_SDK_Video_Capture_Demo
             await VideoCapture1.StopAsync();
         }
 
+        private void cbZoom_CheckedChanged(object sender, EventArgs e)
+        {
+            IVideoEffectZoom zoomEffect;
+            var effect = VideoCapture1.Video_Effects_Get("Zoom");
+            if (effect == null)
+            {
+                zoomEffect = new VideoEffectZoom(zoom, zoom, zoomShiftX, zoomShiftY, cbZoom.Checked);
+                VideoCapture1.Video_Effects_Add(zoomEffect);
+            }
+            else
+            {
+                zoomEffect = effect as IVideoEffectZoom;
+            }
+
+            if (zoomEffect == null)
+            {
+                MessageBox.Show(this, "Unable to configure zoom effect.");
+                return;
+            }
+
+            zoomEffect.ZoomX = zoom;
+            zoomEffect.ZoomY = zoom;
+            zoomEffect.ShiftX = zoomShiftX;
+            zoomEffect.ShiftY = zoomShiftY;
+            zoomEffect.Enabled = cbZoom.Checked;
+        }
+
+        private void btEffZoomIn_Click(object sender, EventArgs e)
+        {
+            zoom += 0.1;
+            zoom = Math.Min(zoom, 5);
+
+            cbZoom_CheckedChanged(null, null);
+        }
+
+        private void btEffZoomOut_Click(object sender, EventArgs e)
+        {
+            zoom -= 0.1;
+            zoom = Math.Max(zoom, 1);
+
+            cbZoom_CheckedChanged(null, null);
+        }
+
+        private void btEffZoomUp_Click(object sender, EventArgs e)
+        {
+            zoomShiftY += 20;
+
+            cbZoom_CheckedChanged(null, null);
+        }
+
+        private void btEffZoomDown_Click(object sender, EventArgs e)
+        {
+            zoomShiftY -= 20;
+
+            cbZoom_CheckedChanged(null, null);
+        }
+
+        private void btEffZoomRight_Click(object sender, EventArgs e)
+        {
+            zoomShiftX += 20;
+
+            cbZoom_CheckedChanged(null, null);
+        }
+
+        private void btEffZoomLeft_Click(object sender, EventArgs e)
+        {
+            zoomShiftX -= 20;
+
+            cbZoom_CheckedChanged(null, null);
+        }
+
+
+
+
+
         private async void Form1_Load(object sender, EventArgs e)
         {
             await CreateEngineAsync();
@@ -378,7 +460,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
 
         private void MyForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F2 || e.KeyCode == Keys.F3) 
+            if (e.KeyCode == Keys.F2 || e.KeyCode == Keys.F3 || e.KeyCode == Keys.S) 
             {
                 saveScreenCapture(); // Call your method
             }
@@ -420,7 +502,9 @@ namespace VisioForge_SDK_Video_Capture_Demo
             lbLastScreenCaptureStatus.Text = filename;
             lbLastScreenCaptureStatus.ForeColor = Color.Black;
 
-            UploadClient.UploadFileAsync(filename, UploadResultCallback);
+            string url = Configuration.GetSection("UploadFileUrl").Value ?? "http://localhost:8081/uploadFile";
+
+            UploadClient.UploadFileAsync(filename, url, UploadResultCallback);
 
 
 

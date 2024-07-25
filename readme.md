@@ -20,3 +20,10 @@ It showcases advanced features like hardware acceleration support, audio effects
 ---
 
 [Visit the product page.](https://www.visioforge.com/video-capture-sdk-net)
+
+
+- implementing zoom
+
+https://github.com/visioforge/.Net-SDK-s-samples/blob/master/Video%20Capture%20SDK/WinForms/CSharp/Main%20Demo/Form1.cs
+
+

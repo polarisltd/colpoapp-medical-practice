@@ -29,12 +29,7 @@ namespace WinForm
         */
         public static IConfiguration GetConfiguration()
         {
-            //var projectRoot = Directory.GetParent(AppContext.BaseDirectory).Parent.Parent.FullName;
-
-            //var builder = new Microsoft.Extensions.Configuration.ConfigurationBuilder()
-            //    .SetBasePath(projectRoot)
-            //    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-
+           
             var path = AppDomain.CurrentDomain.BaseDirectory;
             var configuration = new ConfigurationBuilder()
        .SetBasePath(path)
