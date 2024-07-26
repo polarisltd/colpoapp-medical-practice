@@ -81,8 +81,14 @@ namespace VisioForge_SDK_Video_Capture_Demo
         {
             Configuration = ConfigurationHelper.GetConfiguration();
             InitializeComponent();
+          
             this.KeyPreview = true; // Enable key preview
             this.KeyDown += new KeyEventHandler(MyForm_KeyDown);
+
+
+            
+
+
         }
 
         private async Task CreateEngineAsync()
@@ -94,6 +100,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             catch (DivideByZeroException ex)
             {
                 // Handle or log the exception here
+                Log($"zeroDivide {ex.Message}");
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.StackTrace);
             }
@@ -195,6 +202,8 @@ namespace VisioForge_SDK_Video_Capture_Demo
 
         private async void btStart_Click(object sender, EventArgs e)
         {
+            Log("entering btStart");
+
             if (VideoCapture1 == null) return;
             mmLog.Clear();
 
@@ -207,7 +216,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             VideoCapture1.Debug_Mode = cbDebugMode.Checked;
             VideoCapture1.Debug_Dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "VisioForge");
 
-            VideoCapture1.Audio_OutputDevice = "Default DirectSound Device";
+            //VideoCapture1.Audio_OutputDevice = "Default DirectSound Device";
 
 
             // apply capture parameters
@@ -221,6 +230,9 @@ namespace VisioForge_SDK_Video_Capture_Demo
             }
 
 
+            VideoCapture1.Mode = VideoCaptureMode.VideoPreview;  // only preview
+
+            /*
             if (rbPreview.Checked)
             {
                 VideoCapture1.Mode = VideoCaptureMode.VideoPreview;
@@ -291,14 +303,15 @@ namespace VisioForge_SDK_Video_Capture_Demo
                         }
                 }
             }
-
-            VideoCapture1.Video_Effects_Enabled = true;
+            */
+            VideoCapture1.Video_Effects_Enabled = false;
+            
             VideoCapture1.Video_Effects_MergeImageLogos = cbMergeImageLogos.Checked;
             VideoCapture1.Video_Effects_MergeTextLogos = cbMergeTextLogos.Checked;
             VideoCapture1.Video_Effects_Clear();
             lbLogos.Items.Clear();
             ConfigureVideoEffects();
-
+            
 
 
             var res = await VideoCapture1.StartAsync();
@@ -402,10 +415,10 @@ namespace VisioForge_SDK_Video_Capture_Demo
 
             Text += $" (SDK v{VideoCapture1.SDK_Version()})";
 
-            tmRecording.Elapsed += (senderx, args) =>
-            {
-                UpdateRecordingTime();
-            };
+           //tmRecording.Elapsed += (senderx, args) =>
+           // {
+           //     UpdateRecordingTime();
+           // };
 
             cbOutputFormat.SelectedIndex = 2;
 
@@ -429,13 +442,15 @@ namespace VisioForge_SDK_Video_Capture_Demo
 
 
             VideoCapture1.Video_Renderer_SetAuto();
+
+            // activate preview
+            Log("=> btStart_Click");
+            btStart_Click(null, EventArgs.Empty);
+
+
         }
 
-        private void llVideoTutorials_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            var startInfo = new ProcessStartInfo("explorer.exe", HelpLinks.VideoTutorials);
-            Process.Start(startInfo);
-        }
+    
 
         private void Log(string txt)
         {
@@ -453,14 +468,12 @@ namespace VisioForge_SDK_Video_Capture_Demo
 
         private void btSaveScreenshot_Click(object sender, EventArgs e)
         {
-            //if (screenshotSaveDialog.ShowDialog(this) == DialogResult.OK)
-            //{
             saveScreenCapture();
         }
 
         private void MyForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F2 || e.KeyCode == Keys.F3 || e.KeyCode == Keys.S) 
+            if (e.KeyCode == Keys.S) 
             {
                 saveScreenCapture(); // Call your method
             }
@@ -503,6 +516,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             lbLastScreenCaptureStatus.ForeColor = Color.Black;
 
             string url = Configuration.GetSection("UploadFileUrl").Value ?? "http://localhost:8081/uploadFile";
+            Log($"using upload url {url}");
 
             UploadClient.UploadFileAsync(filename, url, UploadResultCallback);
 
@@ -516,13 +530,13 @@ namespace VisioForge_SDK_Video_Capture_Demo
                 lbLastScreenCaptureStatus.Text += " Success ";
                 lbLastScreenCaptureStatus.ForeColor = Color.Black;
 
-                Debug.WriteLine("Upload successful.");
+                Log("Success.");
             }
             else
             {
                 lbLastScreenCaptureStatus.Text += " Failed ";
                 lbLastScreenCaptureStatus.ForeColor = Color.Red;
-                Debug.WriteLine("Upload failed.");
+                Log("Failed.");
             }
         }
 
@@ -699,7 +713,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
                     }
             }
         }
-
+        /*
         private void UpdateRecordingTime()
         {
             if (IsHandleCreated)
@@ -718,7 +732,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
                                     }));
             }
         }
-
+        */
         private void btTextLogoAdd_Click(object sender, EventArgs e)
         {
             var dlg = new TextLogoSettingsDialog();

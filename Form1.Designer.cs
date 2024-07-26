@@ -70,7 +70,6 @@ namespace VisioForge_SDK_Video_Capture_Demo
             btStart = new Button();
             tcMain = new TabControl();
             tabPage1 = new TabPage();
-            button1 = new Button();
             label1 = new Label();
             cbUseBestVideoInputFormat = new System.Windows.Forms.CheckBox();
             btVideoCaptureDeviceSettings = new Button();
@@ -107,6 +106,8 @@ namespace VisioForge_SDK_Video_Capture_Demo
             btImageLogoAdd = new Button();
             label2 = new Label();
             tabZoom = new TabPage();
+            label6 = new Label();
+            label5 = new Label();
             groupBox37 = new System.Windows.Forms.GroupBox();
             btEffZoomRight = new Button();
             btEffZoomLeft = new Button();
@@ -121,11 +122,6 @@ namespace VisioForge_SDK_Video_Capture_Demo
             saveFileDialog1 = new SaveFileDialog();
             openFileDialog2 = new OpenFileDialog();
             fontDialog1 = new FontDialog();
-            llVideoTutorials = new LinkLabel();
-            label34 = new Label();
-            lbTimestamp = new Label();
-            rbCapture = new System.Windows.Forms.RadioButton();
-            rbPreview = new System.Windows.Forms.RadioButton();
             btSaveScreenshot = new Button();
             btResume = new Button();
             btPause = new Button();
@@ -149,7 +145,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             btStop.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            btStop.Location = new System.Drawing.Point(1271, 903);
+            btStop.Location = new System.Drawing.Point(110, 681);
             btStop.Margin = new Padding(4, 5, 4, 5);
             btStop.Name = "btStop";
             btStop.Size = new System.Drawing.Size(82, 35);
@@ -162,7 +158,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             btStart.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            btStart.Location = new System.Drawing.Point(1182, 903);
+            btStart.Location = new System.Drawing.Point(20, 681);
             btStart.Margin = new Padding(4, 5, 4, 5);
             btStart.Name = "btStart";
             btStart.Size = new System.Drawing.Size(82, 35);
@@ -183,12 +179,11 @@ namespace VisioForge_SDK_Video_Capture_Demo
             tcMain.Margin = new Padding(4, 5, 4, 5);
             tcMain.Name = "tcMain";
             tcMain.SelectedIndex = 0;
-            tcMain.Size = new System.Drawing.Size(504, 942);
+            tcMain.Size = new System.Drawing.Size(506, 653);
             tcMain.TabIndex = 49;
             // 
             // tabPage1
             // 
-            tabPage1.Controls.Add(button1);
             tabPage1.Controls.Add(label1);
             tabPage1.Controls.Add(cbUseBestVideoInputFormat);
             tabPage1.Controls.Add(btVideoCaptureDeviceSettings);
@@ -202,20 +197,10 @@ namespace VisioForge_SDK_Video_Capture_Demo
             tabPage1.Margin = new Padding(4, 5, 4, 5);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(4, 5, 4, 5);
-            tabPage1.Size = new System.Drawing.Size(496, 909);
+            tabPage1.Size = new System.Drawing.Size(498, 620);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Devices";
             tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            button1.Location = new System.Drawing.Point(122, 238);
-            button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(252, 80);
-            button1.TabIndex = 129;
-            button1.Text = "Data Entry";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
             // 
             // label1
             // 
@@ -320,7 +305,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             tabPage2.Margin = new Padding(4, 5, 4, 5);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(4, 5, 4, 5);
-            tabPage2.Size = new System.Drawing.Size(496, 909);
+            tabPage2.Size = new System.Drawing.Size(498, 620);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Output";
             tabPage2.UseVisualStyleBackColor = true;
@@ -374,7 +359,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             tabPage3.Margin = new Padding(4, 5, 4, 5);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(4, 5, 4, 5);
-            tabPage3.Size = new System.Drawing.Size(496, 909);
+            tabPage3.Size = new System.Drawing.Size(498, 620);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Video effects";
             tabPage3.UseVisualStyleBackColor = true;
@@ -622,16 +607,38 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // 
             // tabZoom
             // 
+            tabZoom.Controls.Add(label6);
+            tabZoom.Controls.Add(label5);
             tabZoom.Controls.Add(groupBox37);
             tabZoom.Controls.Add(cbZoom);
             tabZoom.Location = new System.Drawing.Point(4, 29);
             tabZoom.Margin = new Padding(2);
             tabZoom.Name = "tabZoom";
             tabZoom.Padding = new Padding(2);
-            tabZoom.Size = new System.Drawing.Size(496, 909);
+            tabZoom.Size = new System.Drawing.Size(498, 620);
             tabZoom.TabIndex = 2;
             tabZoom.Text = "Zoom";
             tabZoom.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.ForeColor = System.Drawing.SystemColors.HotTrack;
+            label6.Location = new System.Drawing.Point(26, 292);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(243, 20);
+            label6.TabIndex = 18;
+            label6.Text = "please make sure Zoom is checked!";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.ForeColor = System.Drawing.SystemColors.HotTrack;
+            label5.Location = new System.Drawing.Point(23, 271);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(440, 20);
+            label5.TabIndex = 17;
+            label5.Text = "please use keyboard add (+) and substract(-) to zoom in and out.";
             // 
             // groupBox37
             // 
@@ -719,6 +726,8 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // cbZoom
             // 
             cbZoom.AutoSize = true;
+            cbZoom.Checked = true;
+            cbZoom.CheckState = CheckState.Checked;
             cbZoom.Location = new System.Drawing.Point(12, 28);
             cbZoom.Margin = new Padding(3, 6, 3, 6);
             cbZoom.Name = "cbZoom";
@@ -736,7 +745,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             tabPage4.Margin = new Padding(4, 5, 4, 5);
             tabPage4.Name = "tabPage4";
             tabPage4.Padding = new Padding(4, 5, 4, 5);
-            tabPage4.Size = new System.Drawing.Size(496, 909);
+            tabPage4.Size = new System.Drawing.Size(498, 620);
             tabPage4.TabIndex = 3;
             tabPage4.Text = "Log";
             tabPage4.UseVisualStyleBackColor = true;
@@ -774,84 +783,22 @@ namespace VisioForge_SDK_Video_Capture_Demo
             fontDialog1.FontMustExist = true;
             fontDialog1.ShowColor = true;
             // 
-            // llVideoTutorials
-            // 
-            llVideoTutorials.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            llVideoTutorials.AutoSize = true;
-            llVideoTutorials.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            llVideoTutorials.Location = new System.Drawing.Point(1628, 5);
-            llVideoTutorials.Margin = new Padding(4, 0, 4, 0);
-            llVideoTutorials.Name = "llVideoTutorials";
-            llVideoTutorials.Size = new System.Drawing.Size(140, 20);
-            llVideoTutorials.TabIndex = 92;
-            llVideoTutorials.TabStop = true;
-            llVideoTutorials.Text = "View video tutorials";
-            llVideoTutorials.LinkClicked += llVideoTutorials_LinkClicked;
-            // 
-            // label34
-            // 
-            label34.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label34.AutoSize = true;
-            label34.Location = new System.Drawing.Point(1331, 5);
-            label34.Margin = new Padding(4, 0, 4, 0);
-            label34.Name = "label34";
-            label34.Size = new System.Drawing.Size(303, 20);
-            label34.TabIndex = 97;
-            label34.Text = "Much more features available in Main Demo";
-            // 
-            // lbTimestamp
-            // 
-            lbTimestamp.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            lbTimestamp.AutoSize = true;
-            lbTimestamp.Location = new System.Drawing.Point(1421, 870);
-            lbTimestamp.Margin = new Padding(4, 0, 4, 0);
-            lbTimestamp.Name = "lbTimestamp";
-            lbTimestamp.Size = new System.Drawing.Size(172, 20);
-            lbTimestamp.TabIndex = 105;
-            lbTimestamp.Text = "Recording time: 00:00:00";
-            // 
-            // rbCapture
-            // 
-            rbCapture.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            rbCapture.AutoSize = true;
-            rbCapture.Location = new System.Drawing.Point(1271, 869);
-            rbCapture.Margin = new Padding(4, 5, 4, 5);
-            rbCapture.Name = "rbCapture";
-            rbCapture.Size = new System.Drawing.Size(82, 24);
-            rbCapture.TabIndex = 104;
-            rbCapture.Text = "Capture";
-            rbCapture.UseVisualStyleBackColor = true;
-            // 
-            // rbPreview
-            // 
-            rbPreview.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            rbPreview.AutoSize = true;
-            rbPreview.Checked = true;
-            rbPreview.Location = new System.Drawing.Point(1182, 869);
-            rbPreview.Margin = new Padding(4, 5, 4, 5);
-            rbPreview.Name = "rbPreview";
-            rbPreview.Size = new System.Drawing.Size(81, 24);
-            rbPreview.TabIndex = 103;
-            rbPreview.TabStop = true;
-            rbPreview.Text = "Preview";
-            rbPreview.UseVisualStyleBackColor = true;
-            // 
             // btSaveScreenshot
             // 
             btSaveScreenshot.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btSaveScreenshot.Location = new System.Drawing.Point(1630, 908);
+            btSaveScreenshot.Location = new System.Drawing.Point(188, 760);
             btSaveScreenshot.Margin = new Padding(4, 5, 4, 5);
             btSaveScreenshot.Name = "btSaveScreenshot";
             btSaveScreenshot.Size = new System.Drawing.Size(138, 35);
             btSaveScreenshot.TabIndex = 108;
-            btSaveScreenshot.Text = "Save snapshot";
+            btSaveScreenshot.Text = "Save snapshot (S)";
             btSaveScreenshot.UseVisualStyleBackColor = true;
             btSaveScreenshot.Click += btSaveScreenshot_Click;
             // 
             // btResume
             // 
             btResume.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btResume.Location = new System.Drawing.Point(1507, 903);
+            btResume.Location = new System.Drawing.Point(432, 681);
             btResume.Margin = new Padding(4, 5, 4, 5);
             btResume.Name = "btResume";
             btResume.Size = new System.Drawing.Size(74, 35);
@@ -863,7 +810,7 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // btPause
             // 
             btPause.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btPause.Location = new System.Drawing.Point(1425, 903);
+            btPause.Location = new System.Drawing.Point(350, 681);
             btPause.Margin = new Padding(4, 5, 4, 5);
             btPause.Name = "btPause";
             btPause.Size = new System.Drawing.Size(74, 35);
@@ -875,10 +822,10 @@ namespace VisioForge_SDK_Video_Capture_Demo
             // VideoView1
             // 
             VideoView1.BackColor = System.Drawing.Color.Black;
-            VideoView1.Location = new System.Drawing.Point(518, 38);
+            VideoView1.Location = new System.Drawing.Point(553, 34);
             VideoView1.Margin = new Padding(4, 5, 4, 5);
             VideoView1.Name = "VideoView1";
-            VideoView1.Size = new System.Drawing.Size(1250, 809);
+            VideoView1.Size = new System.Drawing.Size(1215, 834);
             VideoView1.StatusOverlay = null;
             VideoView1.TabIndex = 109;
             // 
@@ -907,26 +854,23 @@ namespace VisioForge_SDK_Video_Capture_Demo
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1793, 960);
             Controls.Add(lbLastScreenCaptureStatus);
+            Controls.Add(btStop);
+            Controls.Add(btSaveScreenshot);
+            Controls.Add(btStart);
             Controls.Add(label4);
             Controls.Add(VideoView1);
-            Controls.Add(btSaveScreenshot);
             Controls.Add(btResume);
-            Controls.Add(btPause);
-            Controls.Add(lbTimestamp);
-            Controls.Add(rbCapture);
-            Controls.Add(rbPreview);
-            Controls.Add(label34);
-            Controls.Add(llVideoTutorials);
-            Controls.Add(btStop);
-            Controls.Add(btStart);
             Controls.Add(tcMain);
+            Controls.Add(btPause);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            KeyPreview = true;
             Margin = new Padding(4, 5, 4, 5);
             MaximizeBox = false;
             Name = "Form1";
             Text = "Simple Video Capture Demo - Video Capture SDK .Net";
             FormClosing += Form1_FormClosing;
             Load += Form1_Load;
+            KeyDown += Form1_KeyDown;
             tcMain.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
@@ -945,6 +889,20 @@ namespace VisioForge_SDK_Video_Capture_Demo
             tabPage4.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
+        }
+
+        // In your form's constructor or Load event, add the KeyDown event handler
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Add)
+            {
+                btEffZoomIn_Click(sender, e);
+            }
+            else if (e.KeyCode == Keys.Subtract)
+            {
+                btEffZoomOut_Click(sender, e);
+            }
         }
 
         #endregion
@@ -969,13 +927,8 @@ namespace VisioForge_SDK_Video_Capture_Demo
         private System.Windows.Forms.ComboBox cbVideoInputDevice;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label11;
-        internal System.Windows.Forms.LinkLabel llVideoTutorials;
-        private System.Windows.Forms.Label label34;
         private System.Windows.Forms.CheckBox cbDebugMode;
         private System.Windows.Forms.TextBox mmLog;
-        private System.Windows.Forms.Label lbTimestamp;
-        private System.Windows.Forms.RadioButton rbCapture;
-        private System.Windows.Forms.RadioButton rbPreview;
         private System.Windows.Forms.Button btSaveScreenshot;
         private System.Windows.Forms.Button btResume;
         private System.Windows.Forms.Button btPause;
@@ -1004,7 +957,6 @@ namespace VisioForge_SDK_Video_Capture_Demo
         private System.Windows.Forms.CheckBox cbMergeImageLogos;
         private VisioForge.Core.UI.WinForms.VideoView VideoView1;
         private System.Windows.Forms.CheckBox cbScrollingText;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lbLastScreenCaptureStatus;
         private System.Windows.Forms.GroupBox groupBox4;
@@ -1016,6 +968,8 @@ namespace VisioForge_SDK_Video_Capture_Demo
         private System.Windows.Forms.Button btEffZoomIn;
         private System.Windows.Forms.Button btEffZoomDown;
         private System.Windows.Forms.Button btEffZoomUp;
+        private Label label6;
+        private Label label5;
     }
 }
 
