@@ -85,11 +85,20 @@ namespace VisioForge_SDK_Video_Capture_Demo
             this.KeyPreview = true; // Enable key preview
             this.KeyDown += new KeyEventHandler(MyForm_KeyDown);
 
+            this.Resize += new EventHandler(Form1_Resize);
 
-            
 
 
         }
+
+        // Event handler for the Resize event
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            // Adjust the size of VideoView1 based on the form's new size
+            VideoView1.Width = this.ClientSize.Width - VideoView1.Location.X - 20; // Adjust the 20 as needed for padding
+            VideoView1.Height = this.ClientSize.Height - VideoView1.Location.Y - 20; // Adjust the 20 as needed for padding
+        }
+
 
         private async Task CreateEngineAsync()
         {
